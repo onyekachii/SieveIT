@@ -9,7 +9,6 @@
     Title="SeiveIT">
 
     <ShellContent
-        Title="Home"
         ContentTemplate="{DataTemplate view:LobbyPage}"
         Route="MainPage" />
 

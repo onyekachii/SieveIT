@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SeiveIT.Views.ProjectCardView">
+    <Border 
+        WidthRequest="200" 
+        MaximumWidthRequest="200"
+        Margin="10"
+        Padding="15">
+        <Border.Shadow>
+            <Shadow Brush="Black" Opacity="0.9" Offset="2,2" Radius="10"></Shadow>
+        </Border.Shadow>
+        <StackLayout>
+            <Label Text="{Binding Title}"/>
+            <Label Text="{Binding Date}"/>
+            <Label Text="{Binding OutcropNumber}"/>
+        </StackLayout>
+    </Border>
+</ContentView>

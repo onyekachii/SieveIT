@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:SeiveIT.Views"
+             xmlns:converters="clr-namespace:SeiveIT.Utilities.Converter"
+             x:Class="SeiveIT.Views.ProjectCardListView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:BoolToInverseBoolConverter x:Key="BoolNegationConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <FlexLayout>
+        <CollectionView IsVisible="{Binding HasProjects}" ItemsSource="{Binding projectCards}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <views:ProjectCardView/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Label IsVisible="{Binding HasProject, Converter={StaticResource BoolNegationConverter}}" Text="no previous projects..."/>
+    </FlexLayout>
+    
+
+
+</ContentView>

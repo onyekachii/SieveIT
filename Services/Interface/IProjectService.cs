@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeiveIT.Repository.Interface
+namespace SeiveIT.Services.Interface
 {
-    public interface IProjectRepository : IRepositoryBase<Project>
+    interface IProjectService
     {
+        Task AddProject(Project project);
     }
 }

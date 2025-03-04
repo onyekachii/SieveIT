@@ -2,7 +2,7 @@
 
 namespace SeiveIT.Repository.Interface
 {
-    interface IRepositoryManager
+    public interface IRepositoryManager
     {
         IProjectRepository Project { get; }
     }

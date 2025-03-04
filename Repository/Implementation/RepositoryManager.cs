@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SeiveIT.Repository.Implementation
 {
-    class RepositoryManager : IRepositoryManager
+    public class RepositoryManager : IRepositoryManager
     {
         readonly Lazy<IProjectRepository> _projectRepo;
         readonly DatabaseManager _dbManager;
@@ -17,7 +17,6 @@ namespace SeiveIT.Repository.Implementation
         {
             _dbManager = dbManager;
             _projectRepo = new Lazy<IProjectRepository>(() => new ProjectRepository(_dbManager));
-            _dbManager = dbManager;
         }
     }
 }

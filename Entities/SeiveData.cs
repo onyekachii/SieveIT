@@ -6,9 +6,6 @@ namespace SeiveIT.Entities
     [Table("SeiveData")]
     public class SeiveData : BaseEntity
     {
-        [PrimaryKey, AutoIncrement]
-        public long Id { get; set; }
-
         [Column("Phi Size")]
         public byte PhiScale { get; set; }
         public byte Weight { get; set; }

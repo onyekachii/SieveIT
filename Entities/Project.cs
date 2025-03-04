@@ -5,8 +5,6 @@ namespace SeiveIT.Entities
     [Table("Project")]
     public class Project : BaseEntity
     {
-        [PrimaryKey, AutoIncrement]
-        public long Id { get; set; }
 
         [Unique]
         public string? Title { get; set; }

@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SQLite;
 
 namespace SeiveIT.Entities
 {
     public class BaseEntity
     {
+        [PrimaryKey, AutoIncrement]
+        public long Id { get; set; }
+
         [Column("Created On")]
         public DateTime CreatedOn { get; set; }
 

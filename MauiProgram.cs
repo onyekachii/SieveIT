@@ -2,6 +2,8 @@
 using SeiveIT.Repository;
 using SeiveIT.Repository.Implementation;
 using SeiveIT.Repository.Interface;
+using SeiveIT.Services.Implementation;
+using SeiveIT.Services.Interface;
 
 namespace SeiveIT
 {
@@ -21,6 +23,7 @@ namespace SeiveIT
             string dbPath = Path.Combine( FileSystem.AppDataDirectory, "Resources", "seiveIT.db3" );
             builder.Services.AddSingleton<DatabaseManager>(s => ActivatorUtilities.CreateInstance<DatabaseManager>(s, dbPath));
             builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
+            builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
 #if DEBUG
             builder.Logging.AddDebug();

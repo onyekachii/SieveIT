@@ -12,7 +12,7 @@ internal abstract class RepositoryBase<T> : IRepositoryBase<T> where T : new()
     protected RepositoryBase(DatabaseManager dbManager)
     {
         _dbManager = dbManager;
-        InitAsync();
+        InitAsync().Wait();
     }
 
     async Task InitAsync() => _connection = await _dbManager.GetConnectionAsync();

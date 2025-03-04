@@ -20,6 +20,7 @@ namespace SeiveIT
 
             string dbPath = Path.Combine( FileSystem.AppDataDirectory, "Resources", "seiveIT.db3" );
             builder.Services.AddSingleton<DatabaseManager>(s => ActivatorUtilities.CreateInstance<DatabaseManager>(s, dbPath));
+            builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 
 #if DEBUG
             builder.Logging.AddDebug();

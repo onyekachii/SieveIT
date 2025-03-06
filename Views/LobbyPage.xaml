@@ -5,7 +5,7 @@
              x:Class="SeiveIT.Views.LobbyPage">
     <VerticalStackLayout>
         <Button
-            Text="New Project"
+            Text="New Project" Clicked="displayPopup"
             />
         <views:ProjectCardListView/>
     </VerticalStackLayout>

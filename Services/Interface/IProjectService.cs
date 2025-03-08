@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SeiveIT.Services.Interface
 {
-    interface IProjectService
+    public interface IProjectService
     {
         Task AddProject(Project project);
     }

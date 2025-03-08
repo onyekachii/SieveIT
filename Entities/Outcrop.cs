@@ -7,8 +7,10 @@ namespace SeiveIT.Entities
     public class Outcrop : BaseEntity
     {        
         public DateTime? Date { get; set; }
+        public string? Altitude { get; set; }
         public string? Basin { get; set; }
         public string? Formation { get; set; }
+        [Indexed]
         public long ProjectId { get; set; }
 
         [Ignore] // SQLite-Net does not support navigation properties directly

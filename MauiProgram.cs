@@ -22,7 +22,7 @@ namespace SeiveIT
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            string dbPath = Path.Combine( FileSystem.AppDataDirectory, "Resources", "seiveIT.db3" );
+            string dbPath = Path.Combine( FileSystem.AppDataDirectory, "seiveIT.db3" );
             builder.Services.AddSingleton<DatabaseManager>(s => ActivatorUtilities.CreateInstance<DatabaseManager>(s, dbPath));
             builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
             builder.Services.AddScoped<IServiceManager, ServiceManager>();

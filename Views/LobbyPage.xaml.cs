@@ -1,18 +1,17 @@
 using CommunityToolkit.Maui.Views;
+using SeiveIT.Services.Interface;
 using SeiveIT.Views.popups;
 
 namespace SeiveIT.Views;
 
 public partial class LobbyPage : ContentPage
 {
-	public LobbyPage()
+	IServiceManager _serviceManager;
+    public LobbyPage(IServiceManager sm)
 	{
 		InitializeComponent();
-	}
-
-	public void displayPopup(object sender, EventArgs e)
-    {
-        var popup = new AddprojectPopup();
-        this.ShowPopup(popup);
+        _serviceManager = sm;
     }
+	public void displayPopup(object sender, EventArgs e) => this.ShowPopup(new AddprojectPopup(_serviceManager));
+    
 }

@@ -16,17 +16,10 @@ internal abstract class RepositoryBase<T> : IRepositoryBase<T> where T : BaseEnt
         InitAsync().Wait();
     }
 
-    public Task GetByEntityAsync(BaseEntity entity) => _connection.FindAsync<BaseEntity>(entity.Id);
-
     async Task InitAsync() => _connection = await _dbManager.GetConnectionAsync();
 
-    public async Task CreateAsync(T entity, bool checkExisting = true)
-    {
-        if (checkExisting)
-        {
-            var value = GetByEntityAsync(entity);
-            if (value != null) throw new Exception("Already exist, duplicate data has been prevented");
-        }
+    public async Task CreateAsync(T entity)
+    {        
         await _connection.InsertAsync(entity);
     }
 

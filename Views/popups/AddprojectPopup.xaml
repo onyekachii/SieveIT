@@ -3,10 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SeiveIT.Views.popups.AddprojectPopup"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="10">
+
+            <Label Text="Title"/>
+            <Entry x:Name="TitleEntry" Text="{Binding Title}" Placeholder="Enter title"/>
+
+            <Label Text="Date"/>
+            <DatePicker x:Name="DatePicker" Date="{Binding Date}"/>
+
+            <Label Text="Latitude Lower Limit"/>
+            <Entry x:Name="LatitudeEntryL" Text="{Binding LatitudeL}" Placeholder="Enter latitude"/>
+
+            <Label Text="Latitude Higher Limit"/>
+            <Entry x:Name="LatitudeEntryH" Text="{Binding LatitudeH}" Placeholder="Enter latitude"/>
+
+            <Label Text="Longitude Lower Limit"/>
+            <Entry x:Name="LongitudeEntryL" Text="{Binding LongitudeL}" Placeholder="Enter longitude"/>
+
+            <Label Text="Longitude Higher Limit"/>
+            <Entry x:Name="LongitudeEntryH" Text="{Binding LongitudeH}" Placeholder="Enter longitude"/>
+
+            <Label Text="Notes"/>
+            <Editor x:Name="NotesEditor" Text="{Binding Notes}" Placeholder="Enter notes" MaxLength="250" HeightRequest="100"/>
+
+            <Button Text="Save" Command="{Binding SaveCommand}"/>
+            <Button Text="Cancel" Command="{Binding CancelCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </toolkit:Popup>

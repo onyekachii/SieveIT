@@ -20,6 +20,7 @@ namespace SeiveIT.Services.Implementation
 
         public async Task AddProject(Project project)
         {
+            project.CreatedOn = DateTime.UtcNow;
             await _repositoryManager.Project.CreateAsync(project);
         }
     }

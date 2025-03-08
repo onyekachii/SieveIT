@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SeiveIT.Services.Interface
 {
-    interface IServiceManager
+    public interface IServiceManager
     {
         IProjectService ProjectService { get; }
     }

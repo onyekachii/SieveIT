@@ -10,14 +10,11 @@ public partial class ProjectCardViewModel : ObservableObject
     private string? _title;
     [ObservableProperty]
     private DateTime? _date;
-    [ObservableProperty]
-    private int _outcropNumber;
-
+    
     public ProjectCardViewModel(ProjectCardModel model)
     {
         _title = model.Title;
         _date = model.Date;
-        _outcropNumber = model.OutcropNumber;
     }
 
 }

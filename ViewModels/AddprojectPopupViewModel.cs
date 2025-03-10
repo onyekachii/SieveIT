@@ -15,7 +15,7 @@ namespace SeiveIT.ViewModels
     public partial class AddprojectPopupViewModel : ObservableObject
     {
         Func<Task> closeCallback;
-        IServiceManager _serviceManager;
+        readonly IServiceManager _serviceManager;
         public AddprojectPopupViewModel(Func<Task> closeAction, IServiceManager sm)
         {
             closeCallback = closeAction;

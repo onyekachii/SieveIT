@@ -2,6 +2,7 @@
 using SeiveIT.Repository.Implementation;
 using SeiveIT.Repository.Interface;
 using SeiveIT.Services.Interface;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,5 +24,11 @@ namespace SeiveIT.Services.Implementation
             project.CreatedOn = DateTime.UtcNow;
             await _repositoryManager.Project.CreateAsync(project);
         }
+
+        public async Task<List<Project>> GetAllProject(int page, int limit)
+        {
+            return await _repositoryManager.Project.FindAll(page, limit);
+        }
+
     }
 }

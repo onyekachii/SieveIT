@@ -6,7 +6,7 @@ namespace SeiveIT.Repository.Interface
 {
     public interface IRepositoryBase<T> where T : BaseEntity, new()
     {
-        AsyncTableQuery<T> FindAll();
+        Task<List<T>> FindAll(int page, int limit);
         AsyncTableQuery<T> FindByCondition(Expression<Func<T, bool>> expression);
         Task CreateAsync(T entity);
         Task UpdateAsync(T entity);

@@ -43,7 +43,7 @@ namespace SeiveIT.ViewModels
         {
             try
             {
-                await _serviceManager.ProjectService.AddProject(new Project
+                var proj = await _serviceManager.ProjectService.AddProject(new Project
                 {
                     Date = Date,
                     Latitude = $"{LatitudeL}-{LatitudeH}",
@@ -53,9 +53,9 @@ namespace SeiveIT.ViewModels
                 });
 
                 await Toast.Make("Project saved").Show();
-                await closeCallback();
+                await Shell.Current.GoToAsync($"project?id={proj.Id}");
             }
-        
+
             catch (SQLite.SQLiteException e)
             {
                 var a = e.GetType();

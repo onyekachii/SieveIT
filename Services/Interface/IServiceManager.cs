@@ -9,5 +9,6 @@ namespace SeiveIT.Services.Interface
     public interface IServiceManager
     {
         IProjectService ProjectService { get; }
+        IOutcropService OutcropService { get; }
     }
 }

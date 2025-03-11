@@ -1,5 +1,4 @@
 ﻿using SeiveIT.Entities;
-using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace SeiveIT.Services.Interface
 {
-    public interface IProjectService
+    public interface IOutcropService
     {
-        Task<Project> AddProject(Project project);
-        Task<List<Project>> GetAllProject(int page, int limit);
+        Task<Outcrop> AddOutcrop(Outcrop o);
+        Task<List<Outcrop>> GetAllOutcrops(long projectid, int page, int limit);
     }
 }

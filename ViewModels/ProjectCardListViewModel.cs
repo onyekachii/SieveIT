@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SeiveIT.Entities;
 using System.Collections.ObjectModel;
 
@@ -9,6 +11,7 @@ namespace SeiveIT.ViewModels
         public ObservableCollection<ProjectCardViewModel>? projectCards { get; set; }
         [ObservableProperty]
         private bool _hasProjects = false;
+        
         int page = 0;
         int limit = 25;
 
@@ -17,6 +20,7 @@ namespace SeiveIT.ViewModels
             var projects = Task.Run(async ()=> await App.serviceManager.ProjectService.GetAllProject(page, limit)).Result;
             projectCards = new ObservableCollection<ProjectCardViewModel>(projects.Select(p => new ProjectCardViewModel(new Models.ProjectCardModel
             {
+                Id = p.Id,
                 Date = p.Date,
                 Title = p.Title,
             })));
@@ -25,6 +29,6 @@ namespace SeiveIT.ViewModels
         public ProjectCardListViewModel()
         {
             Get();
-        }
+        }                
     }
 }

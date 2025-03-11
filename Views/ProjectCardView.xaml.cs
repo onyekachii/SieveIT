@@ -10,4 +10,5 @@ public partial class ProjectCardView : ContentView
 		InitializeComponent();
 		BindingContext = new ProjectCardViewModel(new ProjectCardModel());
 	}
+
 }

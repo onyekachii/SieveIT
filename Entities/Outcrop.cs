@@ -5,9 +5,12 @@ namespace SeiveIT.Entities
 {
     [Table("Outcrop")]
     public class Outcrop : BaseEntity
-    {        
+    {
+        [Unique]
+        [NotNull]
+        public string? Title { get; set; }
         public DateTime? Date { get; set; }
-        public string? Altitude { get; set; }
+        public int? Altitude { get; set; }
         public string? Basin { get; set; }
         public string? Formation { get; set; }
         [Indexed]

@@ -19,10 +19,11 @@ namespace SeiveIT.Services.Implementation
             _repositoryManager = repoManger;
         }
 
-        public async Task AddProject(Project project)
+        public async Task<Project> AddProject(Project project)
         {
             project.CreatedOn = DateTime.UtcNow;
             await _repositoryManager.Project.CreateAsync(project);
+            return project;
         }
 
         public async Task<List<Project>> GetAllProject(int page, int limit)

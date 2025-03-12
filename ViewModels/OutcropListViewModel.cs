@@ -13,15 +13,17 @@ namespace SeiveIT.ViewModels
         bool _hasOutcrops = false;
         [ObservableProperty]
         public long _projectId;
+        
 
         int page = 0;
         int limit = 25;
         bool hasInit = false;
-               
+
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
-            if(string.Equals(e.PropertyName, nameof(ProjectId)) && ProjectId > 0 && hasInit == false){
+            if (string.Equals(e.PropertyName, nameof(ProjectId)) && ProjectId > 0 && hasInit == false)
+            {
                 Init();
                 hasInit = true;
             }

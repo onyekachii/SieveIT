@@ -4,12 +4,11 @@ namespace SeiveIT.Views;
 
 public partial class OutcropListView : ContentView
 {
-    public OutcropListViewModel OutcropListViewModel;
-
-    public OutcropListView()
+    public OutcropListView(long projectid)
 	{
 		InitializeComponent();
-        OutcropListViewModel = new OutcropListViewModel();
+        OutcropListViewModel OutcropListViewModel = new OutcropListViewModel();
+        OutcropListViewModel.ProjectId = projectid;
         BindingContext = OutcropListViewModel;
     }
 

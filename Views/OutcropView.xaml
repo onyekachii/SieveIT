@@ -11,8 +11,8 @@
             <Shadow Brush="Black" Opacity="0.9" Offset="2,2" Radius="10"></Shadow>
         </Border.Shadow>
         <StackLayout>
-            <Label Text="{Binding Title}"/>
-            <Label Text="{Binding Date}"/>
+            <Label Text="{Binding Outcrop.Title}"/>
+            <Label Text="{Binding Outcrop.Date}"/>
         </StackLayout>
     </Border>
 </ContentView>

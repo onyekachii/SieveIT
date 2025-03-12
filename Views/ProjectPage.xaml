@@ -3,11 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SeiveIT.Views.ProjectPage"
              xmlns:views="clr-namespace:SeiveIT.Views">
-    <VerticalStackLayout>
+    <VerticalStackLayout x:Name="mainlayout">
         <Button
         Text="New Outcrop" Clicked="displayPopup"
         />
-        <views:OutcropListView x:Name="outcropListView"/>
-
     </VerticalStackLayout>
 </ContentPage>

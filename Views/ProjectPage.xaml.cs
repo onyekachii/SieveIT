@@ -6,19 +6,19 @@ using System;
 
 namespace SeiveIT.Views;
 
-[QueryProperty(nameof(id), "id")]
+[QueryProperty(nameof(ProjectId), "id")]
 public partial class ProjectPage : ContentPage
 {
-    public long id { get; set; }
-    public ProjectPage()
-	{
+    public long ProjectId { get; set; }
+    public ProjectPage() =>	
         InitializeComponent();
-    }
-
+    
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        outcropListView.OutcropListViewModel.ProjectId = id;
+        if (!mainlayout.Children.OfType<OutcropListView>().Any())        
+            mainlayout.Add(new OutcropListView(ProjectId));        
     }
-    public void displayPopup(object sender, EventArgs e) => this.ShowPopup(new AddOutcropPopup(id));
+
+    public void displayPopup(object sender, EventArgs e) => this.ShowPopup(new AddOutcropPopup(ProjectId));
 }

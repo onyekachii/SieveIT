@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SeiveIT.Views.RawDataRows">
+    <Grid ColumnDefinitions="*, *, *, *">
+        <Label Text="{Binding PhiScale}" Grid.Row="{Binding RowNumber}"/>
+        <Entry Text="{Binding Weight, StringFormat='{0:F1}'}" Grid.Row="{Binding RowNumber}" Grid.Column="1" Keyboard="Numeric"/>
+        <Label Text="{Binding IndWeight}" Grid.Row="{Binding RowNumber}" Grid.Column="2" VerticalOptions="Center"/>
+        <Label Text="{Binding CummWeight}" Grid.Row="{Binding RowNumber}" Grid.Column="3" VerticalOptions="Center"/>
+    </Grid>
+    
+</ContentView>

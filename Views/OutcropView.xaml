@@ -10,6 +10,9 @@
         <Border.Shadow>
             <Shadow Brush="Black" Opacity="0.9" Offset="2,2" Radius="10"></Shadow>
         </Border.Shadow>
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding GotoAnalyseCommand}"/>
+        </Border.GestureRecognizers>
         <StackLayout>
             <Label Text="{Binding Outcrop.Title}"/>
             <Label Text="{Binding Outcrop.Date}"/>

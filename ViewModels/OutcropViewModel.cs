@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SeiveIT.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,16 @@ namespace SeiveIT.ViewModels
         public OutcropViewModel(Outcrop o)
         {
             _outcrop = o;
+        }
+
+        [RelayCommand]
+        async Task GotoAnalyse()
+        {
+            if (DeviceInfo.Idiom == DeviceIdiom.Phone)
+                await Shell.Current.GoToAsync($"analyse?pid={_outcrop.ProjectId}&oid={_outcrop.Id}");
+            else
+                await Shell.Current.GoToAsync($"analyse?pid={_outcrop.ProjectId}&oid={_outcrop.Id}");
+            
         }
     }
 }

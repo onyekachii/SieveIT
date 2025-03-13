@@ -39,6 +39,8 @@ namespace SeiveIT.ViewModels
                 Formation = p.Formation,
                 Date = p.Date,
                 Title = p.Title,
+                ProjectId = p.ProjectId,
+                Id = p.Id
             })));
             HasOutcrops = outcrops.Count > 0;
         }

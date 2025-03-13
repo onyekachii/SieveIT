@@ -8,6 +8,7 @@ namespace SeiveIT
         {
             InitializeComponent();
             Routing.RegisterRoute("project", typeof(ProjectPage));
+            Routing.RegisterRoute("analyse", typeof(AnalysisPage));
         }
     }
 }

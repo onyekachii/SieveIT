@@ -45,7 +45,7 @@ namespace SeiveIT.ViewModels
                 });
 
                 await Toast.Make("Outcrop saved").Show();
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync($"analyse?pid={_projectId}&oid={outcrop.Id}");
             }
 
             catch (SQLite.SQLiteException e)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SeiveIT.Models
 {
-    public record RawData(float PhiScale, float RolNum, float Weight = 0, float IndWeight = 0, float CummWeight = 0)
+    public record RawData(float PhiScale, double RolNum, double Weight = 0, double IndWeight = 0, double CummWeight = 0)
     {
         public static IEnumerable<RawData> GetRows()
         {

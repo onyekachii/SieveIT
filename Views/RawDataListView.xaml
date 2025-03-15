@@ -23,8 +23,7 @@
                 ColumnDefinitions="*,*,*,*">
                 <Label Text="Total" FontAttributes="Bold"/>
                 <Label Text="{Binding TotalWeight}" Grid.Column="1" FontAttributes="Bold"/>
-                <Label Grid.Column="2" FontAttributes="Bold"/>
-                <Label Grid.Column="3" FontAttributes="Bold"/>
+                <Label Text="{Binding TotalInd}" Grid.Column="2" FontAttributes="Bold"/>
 
                 <Button Text="Run" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" Command="{Binding RunCommand}"></Button>
             </Grid>            

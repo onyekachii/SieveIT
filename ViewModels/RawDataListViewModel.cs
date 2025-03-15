@@ -15,7 +15,9 @@ namespace SeiveIT.ViewModels
     {
         public ObservableCollection<RawDataViewModel> Rows { get; set; }
         [ObservableProperty]
-        float _totalWeight;
+        double _totalWeight;
+        [ObservableProperty]
+        double _totalInd;
               
         public RawDataListViewModel()
         {
@@ -35,7 +37,17 @@ namespace SeiveIT.ViewModels
         [RelayCommand]
         void Run()
         {
-            TotalWeight = Rows.Sum(r => r.Weight);
+            TotalWeight = Math.Round(Rows.Sum(r => r.Weight), 1);
+            double prevRow = 0;
+            foreach (var row in Rows)
+            {
+                row.IndWeight = Math.Round( (100 * row.Weight) / TotalWeight, 2);
+                row.CummWeight = 0;
+                row.CummWeight = Math.Round(prevRow + row.IndWeight, 2);
+                prevRow = row.CummWeight;
+            }
+        
+            TotalInd = Math.Round(Rows.Sum(r => r.IndWeight));            
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.ComponentModel;
 
 namespace SeiveIT.ViewModels
 {
@@ -14,5 +15,6 @@ namespace SeiveIT.ViewModels
         float _cummWeight;
         [ObservableProperty]
         float _rowNumber;
+
     }
 }

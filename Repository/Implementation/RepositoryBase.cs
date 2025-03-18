@@ -32,4 +32,12 @@ internal abstract class RepositoryBase<T> : IRepositoryBase<T> where T : BaseEnt
     public AsyncTableQuery<T> FindByCondition(Expression<Func<T, bool>> expression) => _connection.Table<T>().Where(expression);
 
     public async Task UpdateAsync(T entity) => await _connection.UpdateAsync(entity);
+
+    public async Task Upsert(T entity) 
+    {
+        if (entity.Id > 0)
+            await _connection.UpdateAsync(entity);
+        else
+            await _connection.InsertAsync(entity);
+    }
 }

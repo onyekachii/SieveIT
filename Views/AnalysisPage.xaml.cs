@@ -12,4 +12,13 @@ public partial class AnalysisPage : TabbedPage
     {
         InitializeComponent();
     }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        var pageOne = new RawDataPage(ProjectId, OutcropId);
+        pageOne.Title = "Raw data";
+        if (!Children.OfType<RawDataPage>().Any())
+            Children.Add(pageOne);
+    }
+
 }

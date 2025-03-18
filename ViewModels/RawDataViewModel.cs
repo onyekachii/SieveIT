@@ -6,9 +6,9 @@ namespace SeiveIT.ViewModels
     public partial class RawDataViewModel : ObservableObject
     {
         [ObservableProperty]
-        double _phiScale;
+        float _phiScale;
         [ObservableProperty]
-        double _weight;
+        float _weight;
         [ObservableProperty]
         double _indWeight;
         [ObservableProperty]

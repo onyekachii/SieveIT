@@ -4,9 +4,10 @@ namespace SeiveIT.Views;
 
 public partial class RawDataListView : ContentView
 {
-	public RawDataListView()
+	public RawDataListView(long projectId, long outcropId)
 	{
 		InitializeComponent();
-		BindingContext = new RawDataListViewModel();
+              
+        BindingContext = new RawDataListViewModel(projectId, outcropId);
 	}
 }

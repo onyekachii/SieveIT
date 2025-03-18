@@ -81,6 +81,9 @@
 	  <MauiXaml Update="Views\LobbyPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\NewPage1.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\OutcropListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

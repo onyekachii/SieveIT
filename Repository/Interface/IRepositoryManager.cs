@@ -6,5 +6,6 @@ namespace SeiveIT.Repository.Interface
     {
         IProjectRepository Project { get; }
         IOutcropRepository Outcrop { get; }
+        IRawDataRepository RawData { get; }
     }
 }

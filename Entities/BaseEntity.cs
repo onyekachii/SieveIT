@@ -8,7 +8,7 @@ namespace SeiveIT.Entities
         public long Id { get; set; }
 
         [Column("Created On")]
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.MinValue;
 
         [Column("Updated On")]
         public DateTime UpdatedOn { get; set; }

@@ -25,7 +25,7 @@ namespace SeiveIT.Repository
 
         private async Task Init()
         {
-            await _connection.ExecuteAsync("PRAGMA foreign_keys = ON;");
+            //await _connection.ExecuteAsync("PRAGMA foreign_keys = ON;");
             await _connection.CreateTableAsync<Project>();
             await _connection.CreateTableAsync<Outcrop>();
             await _connection.CreateTableAsync<SeiveData>();

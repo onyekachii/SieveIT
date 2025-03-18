@@ -10,5 +10,6 @@ namespace SeiveIT.Services.Interface
     {
         IProjectService ProjectService { get; }
         IOutcropService OutcropService { get; }
+        IRawDataService RawDataService { get;  }
     }
 }

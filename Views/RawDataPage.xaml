@@ -4,7 +4,6 @@
              xmlns:views="clr-namespace:SeiveIT.Views"
              x:Class="SeiveIT.Views.RawDataPage"
              Title="RawData">
-    <ScrollView>
-        <views:RawDataListView />
-    </ScrollView>
+    <FlexLayout x:Name="mainLayout"/>
+
 </ContentPage>

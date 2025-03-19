@@ -14,6 +14,8 @@ namespace SeiveIT.ViewModels
         [ObservableProperty]
         double _cummWeight;
         [ObservableProperty]
+        double _cummPassing;
+        [ObservableProperty]
         double _rowNumber;
 
     }

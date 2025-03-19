@@ -14,11 +14,12 @@
             </HorizontalStackLayout>
             <CollectionView ItemsSource="{Binding Rows}">
                 <CollectionView.Header>
-                    <Grid ColumnDefinitions="*, *, *, *">
+                    <Grid ColumnDefinitions="*, *, *, *, *">
                         <Label Text="Phi Scale" Grid.Row="0" FontAttributes="Bold"/>
                         <Label Text="Weight (g)" Grid.Row="0" FontAttributes="Bold" Grid.Column="1"/>
-                        <Label Text="Individual weight (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="2"/>
-                        <Label Text="Cummulative weight (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="3"/>
+                        <Label Text="Individual Weight (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="2"/>
+                        <Label Text="Cummulative Weight (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="3"/>
+                        <Label Text="Cummulative Passing (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="4"/>
                     </Grid>
                 </CollectionView.Header>
                 <CollectionView.ItemTemplate>

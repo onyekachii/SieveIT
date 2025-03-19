@@ -33,6 +33,7 @@ namespace SeiveIT.ViewModels
                     PhiScale = r.PhiScale,
                     RowNumber = r.RolNum,
                     Weight = r.Weight,
+                    CummPassing = r.CummPassing
                 })
             );
         }
@@ -41,6 +42,7 @@ namespace SeiveIT.ViewModels
         void Run()
         {
             TotalWeight = Math.Round(Rows.Sum(r => r.Weight), 1);
+            double totalInd = 0;
             double prevRow = 0;
             foreach (var row in Rows)
             {
@@ -48,9 +50,13 @@ namespace SeiveIT.ViewModels
                 row.CummWeight = 0;
                 row.CummWeight = Math.Round(prevRow + row.IndWeight, 3);
                 prevRow = row.CummWeight;
+                totalInd += row.IndWeight;
             }
-        
-            TotalInd = Math.Round(Rows.Sum(r => r.IndWeight));            
+            TotalInd = Math.Round(totalInd);  
+            foreach(var row in Rows)
+            {
+                row.CummPassing = Math.Round(TotalInd - row.IndWeight, 3);
+            }
         }
 
         [RelayCommand]

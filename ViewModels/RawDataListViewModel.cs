@@ -25,7 +25,25 @@ namespace SeiveIT.ViewModels
         {
             Pid = pid;
             Oid = oid;
-            Rows = new ObservableCollection<RawDataViewModel>( RawData.GetRows()
+
+            Load();
+        }
+
+        void Load()
+        {
+            List<SeiveData> data = Task.Run(async ()=> await _serviceManager.RawDataService.Get(Pid, Oid)).Result;
+            if (data.Count > 0)
+            {
+                Rows = new ObservableCollection<RawDataViewModel>(data.OrderBy(d => d.PhiScale).Select(r => new RawDataViewModel
+                {
+                    PhiScale = r.PhiScale,
+                    Weight = r.Weight,
+                }));
+                Run();
+            }
+            else
+            {
+                Rows = new ObservableCollection<RawDataViewModel>(RawData.GetRows()
                 .Select(r => new RawDataViewModel
                 {
                     CummWeight = r.CummWeight,
@@ -34,10 +52,10 @@ namespace SeiveIT.ViewModels
                     RowNumber = r.RolNum,
                     Weight = r.Weight,
                     CummPassing = r.CummPassing
-                })
-            );
-        }
+                }));
+            }
 
+        }
         [RelayCommand]
         void Run()
         {
@@ -64,22 +82,18 @@ namespace SeiveIT.ViewModels
         {
             try
             {
-                foreach (var row in Rows)
+                var data = Rows.Select(r => new SeiveData
                 {
-                    var data = await _serviceManager.RawDataService.UpsertSeiveData(new SeiveData
-                    {
-                        PhiScale = row.PhiScale,
-                        Weight = row.Weight,
-                        OutcropId = Oid,
-                        ProjectId = Pid
-                    });
-                }
-               
+                    PhiScale = r.PhiScale,
+                    Weight = r.Weight,
+                    OutcropId = Oid,
+                    ProjectId = Pid
+                }).ToList();
+                await _serviceManager.RawDataService.UpsertSeiveData(data);                                           
 
                 await Toast.Make("Project saved").Show();
                 //await Shell.Current.GoToAsync($"project?id={proj.Id}");
             }
-
             catch (SQLite.SQLiteException e)
             {
                 var a = e.GetType();

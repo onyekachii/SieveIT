@@ -26,9 +26,9 @@ internal abstract class RepositoryBase<T> : IRepositoryBase<T> where T : BaseEnt
     public async Task<int> DeleteAsync(T entity) => await _connection.DeleteAsync(entity);
 
     public async Task<List<T>> FindAll(int page, int limit)
-    {        
-        return await _connection.Table<T>().Skip(page * limit).Take(limit).ToListAsync();
-    }
+    {
+                return await _connection.Table<T>().Skip(page * limit).Take(limit).ToListAsync();
+        }
     public AsyncTableQuery<T> FindByCondition(Expression<Func<T, bool>> expression) => _connection.Table<T>().Where(expression);
 
     public async Task UpdateAsync(T entity) => await _connection.UpdateAsync(entity);
@@ -39,5 +39,24 @@ internal abstract class RepositoryBase<T> : IRepositoryBase<T> where T : BaseEnt
             await _connection.UpdateAsync(entity);
         else
             await _connection.InsertAsync(entity);
+    }
+
+    public async Task UpsertAll(List<T> entity)
+    {
+        await _connection.RunInTransactionAsync(async _ => {
+            entity.ForEach(async (item) => {
+                if(item.Id > 0)
+                {
+                    item.UpdatedOn = DateTime.UtcNow;
+                    await _connection.UpdateAsync(item);
+                }
+                else
+                {
+                    item.CreatedOn = DateTime.UtcNow;
+                    await _connection.InsertAsync(item);
+                }
+            });
+        });
+       
     }
 }

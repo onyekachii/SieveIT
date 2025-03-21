@@ -3,7 +3,7 @@ using SQLite;
 
 namespace SeiveIT.Entities
 {
-    [Table("SeiveData")]
+    [Table("Seive")]
     public class SeiveData : BaseEntity
     {
         [Column("Phi Size")]

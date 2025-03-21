@@ -9,6 +9,7 @@ namespace SeiveIT.Services.Interface
 {
     public interface IRawDataService
     {
-        Task<SeiveData> UpsertSeiveData(SeiveData data);
+        Task<List<SeiveData>> Get(long projectId, long outcropId);
+        Task UpsertSeiveData(List<SeiveData> entity);
     }
 }

@@ -11,8 +11,10 @@ public partial class AnalysisPage : TabbedPage
     public AnalysisPage()
     {
         InitializeComponent();
+        Loaded += AnalysisPage_Loaded;
     }
-    protected override void OnAppearing()
+
+    private void AnalysisPage_Loaded(object? sender, EventArgs e)
     {
         var flexlayout = new FlexLayout();
         flexlayout.Children.Add(new RawDataListView(ProjectId, OutcropId));
@@ -22,6 +24,5 @@ public partial class AnalysisPage : TabbedPage
         pageOne.Content = flexlayout;
         if (!Children.Any(c => c == pageOne))
             Children.Add(pageOne);
-        base.OnAppearing();
     }
 }

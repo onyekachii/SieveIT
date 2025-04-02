@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:oxy="clr-namespace:OxyPlot.Maui.Skia;assembly=OxyPlot.Maui.Skia"
              x:Class="SeiveIT.Views.RawDataListView"
              xmlns:views="clr-namespace:SeiveIT.Views">
     <ScrollView VerticalScrollBarVisibility="Always">
@@ -12,6 +13,11 @@
                 <Button Text="Save" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="1" Command="{Binding SaveCommand}"></Button>
 
             </HorizontalStackLayout>
+            <oxy:PlotView x:Name="plot" HeightRequest="400" WidthRequest="400"/>
+
+            <!--<StackLayout x:Name="plotstack">
+                <oxy:PlotView x:Name="plot" HeightRequest="400" WidthRequest="400"/>
+            </StackLayout>-->
             <CollectionView ItemsSource="{Binding Rows}">
                 <CollectionView.Header>
                     <Grid ColumnDefinitions="*, *, *, *, *">

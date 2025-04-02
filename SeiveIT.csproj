@@ -71,9 +71,6 @@
 	  <Compile Update="Views\ProjectCardListView.xaml.cs">
 	    <DependentUpon>ProjectCardListView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\RawDataPage.xaml.cs">
-	    <DependentUpon>RawDataPage.xaml</DependentUpon>
-	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -108,9 +105,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\RawDataListView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\RawDataPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\RawDataRows.xaml">

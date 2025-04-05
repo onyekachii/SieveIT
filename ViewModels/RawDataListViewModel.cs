@@ -74,9 +74,11 @@ namespace SeiveIT.ViewModels
                 Rows = new ObservableCollection<RawDataViewModel>(data.OrderBy(d => d.PhiScale).Select(r => new RawDataViewModel
                 {
                     PhiScale = r.PhiScale,
-                    Weight = r.Weight,
+                    Weight = r.Weight.ToString(),
+                    Id = r.Id
                 }));
                 Run();
+                PlotModeler = CreatePlotModel();
             }
             else
             {
@@ -87,22 +89,21 @@ namespace SeiveIT.ViewModels
                     IndWeight = r.IndWeight,
                     PhiScale = r.PhiScale,
                     RowNumber = r.RolNum,
-                    Weight = r.Weight,
+                    Weight = r.Weight.ToString(),
                     CummPassing = r.CummPassing
                 }));
             }
-            PlotModeler = CreatePlotModel();
         }
 
         [RelayCommand]
         void Run()
         {
-            TotalWeight = Math.Round(Rows.Sum(r => r.Weight), 1);
+            TotalWeight = Math.Round(Rows.Sum(r => float.Parse(r.Weight)), 1);
             double totalInd = 0;
             double prevRow = 0;
             foreach (var row in Rows)
             {
-                row.IndWeight = Math.Round( (100 * row.Weight) / TotalWeight, 3);
+                row.IndWeight = Math.Round( (100 * float.Parse(row.Weight)) / TotalWeight, 3);
                 row.CummWeight = 0;
                 row.CummWeight = Math.Round(prevRow + row.IndWeight, 3);
                 prevRow = row.CummWeight;
@@ -122,8 +123,9 @@ namespace SeiveIT.ViewModels
             {
                 var data = Rows.Select(r => new SeiveData
                 {
+                    Id = r.Id,
                     PhiScale = r.PhiScale,
-                    Weight = r.Weight,
+                    Weight = float.Parse(r.Weight),
                     OutcropId = Oid,
                     ProjectId = Pid
                 }).ToList();

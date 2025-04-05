@@ -8,7 +8,7 @@ namespace SeiveIT.ViewModels
         [ObservableProperty]
         float _phiScale;
         [ObservableProperty]
-        float _weight;
+        string _weight;
         [ObservableProperty]
         double _indWeight;
         [ObservableProperty]
@@ -17,6 +17,7 @@ namespace SeiveIT.ViewModels
         double _cummPassing;
         [ObservableProperty]
         double _rowNumber;
+        public long Id { get; set; }
 
     }
 }

@@ -22,7 +22,19 @@ public partial class AnalysisPage : TabbedPage
         var pageOne = new ContentPage();
         pageOne.Title = "Raw data";
         pageOne.Content = flexlayout;
-        if (!Children.Any(c => c == pageOne))
-            Children.Add(pageOne);
+        if (!Children.Contains(pageOne))
+        {
+            try
+            {
+                Children.Add(pageOne);
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions that might occur during page addition
+                Console.WriteLine($"Error adding page: {ex.Message}");
+            }
+        }
+
+           // Children.Add(pageOne);
     }
 }

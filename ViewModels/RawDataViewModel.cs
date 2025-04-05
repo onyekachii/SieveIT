@@ -17,6 +17,8 @@ namespace SeiveIT.ViewModels
         double _cummPassing;
         [ObservableProperty]
         double _rowNumber;
+        [ObservableProperty]
+        double _miliScale;
         public long Id { get; set; }
 
     }

@@ -11,6 +11,7 @@ using SeiveIT.Services.Interface;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text;
 
 namespace SeiveIT.ViewModels
 {
@@ -26,6 +27,8 @@ namespace SeiveIT.ViewModels
         double _totalInd;
         [ObservableProperty]
         PlotModel _plotModeler;
+        [ObservableProperty]
+        string _finalResult;
 
         public RawDataListViewModel(long pid, long oid)
         {
@@ -34,7 +37,7 @@ namespace SeiveIT.ViewModels
             Load();
         }
 
-        private PlotModel CreatePlotModel()
+        private PlotModel CreatePlotModel(double minPhi, double maxPhi)
         {
             var plotModel = new PlotModel { Title = "Semi-Log Plot" };
             plotModel.Axes.Add(new LinearAxis
@@ -50,20 +53,40 @@ namespace SeiveIT.ViewModels
             {
                 Position = AxisPosition.Bottom,
                 Title = "Log Y-Axis",
-                Base = 10, // Logarithm base (10 for log10, 2 for log2, etc.)
-                Minimum = 1,  // Minimum value (10^0 = 1)
-                Maximum = 10000, // Maximum value (10^4 = 10000)
+                Base = 10,
+                Minimum = minPhi,
+                Maximum = maxPhi,
                 MajorGridlineStyle = LineStyle.Solid,
                 MinorGridlineStyle = LineStyle.Dot
             });
             var series = new LineSeries();
             foreach (var row in Rows)
             {
-                series.Points.Add(new DataPoint(row.CummWeight, row.IndWeight));
+                series.Points.Add(new DataPoint(row.MiliScale, row.CummPassing));
             }
             plotModel.Series.Add(series);
-            // Add your axes and series
             return plotModel;
+        }
+
+        double GetXValueForY(double yValue)
+        {
+            var lineSeries = PlotModeler.Series.OfType<LineSeries>().FirstOrDefault();
+            if (lineSeries == null)            
+                throw new InvalidOperationException("No LineSeries found in the plot.");
+            
+            for (int i = 0; i < lineSeries.Points.Count - 1; i++)
+            {
+                var p1 = lineSeries.Points[i];
+                var p2 = lineSeries.Points[i + 1];
+
+                if ((p1.Y <= yValue && p2.Y >= yValue) || (p1.Y >= yValue && p2.Y <= yValue))
+                {
+                    double xValue = p1.X + (yValue - p1.Y) * (p2.X - p1.X) / (p2.Y - p1.Y);
+                    return xValue;
+                }
+            }
+
+            throw new InvalidOperationException("No intersection found for the specified Y value.");
         }
 
         void Load()
@@ -74,17 +97,18 @@ namespace SeiveIT.ViewModels
                 Rows = new ObservableCollection<RawDataViewModel>(data.OrderBy(d => d.PhiScale).Select(r => new RawDataViewModel
                 {
                     PhiScale = r.PhiScale,
+                    MiliScale = Math.Pow(2, -r.PhiScale),
                     Weight = r.Weight.ToString(),
                     Id = r.Id
                 }));
-                Run();
-                PlotModeler = CreatePlotModel();
+                Run();               
             }
             else
             {
                 Rows = new ObservableCollection<RawDataViewModel>(RawData.GetRows()
                 .Select(r => new RawDataViewModel
                 {
+                    MiliScale = Math.Pow(2, -r.PhiScale),
                     CummWeight = r.CummWeight,
                     IndWeight = r.IndWeight,
                     PhiScale = r.PhiScale,
@@ -112,8 +136,37 @@ namespace SeiveIT.ViewModels
             TotalInd = Math.Round(totalInd);  
             foreach(var row in Rows)
             {
-                row.CummPassing = Math.Round(TotalInd - row.IndWeight, 3);
+                row.CummPassing = Math.Round(TotalInd - row.CummWeight, 3);
             }
+            var phiValues = Rows.Select(r => r.MiliScale);
+            PlotModeler = CreatePlotModel(phiValues.Min(), phiValues.Max());
+            var d10 = GetXValueForY(10);
+            var d30 = GetXValueForY(30);
+            var d60 = GetXValueForY(60);
+            var cc = Math.Pow(d30, 2) / (d10 * d60);
+            var cu = d60 / d10;
+            bool isWellGradedGravel = cu > 4 && cc > 1 && cc < 3;
+            bool isWellGradedSand = cu > 6 && cc > 1 && cc < 3;
+            bool isUniformGraded = cu == 1 && cc == 1;
+            StringBuilder results = new StringBuilder();
+            
+            results.Append($"Coefficient of Curvature: {cc}\n");
+            results.Append($"Uniformity: {cu}\n");
+            results.Append($"D10: {d10}\n");
+            results.Append($"D30: {d30}\n");
+            results.Append($"D60: {d60}\n\n");
+            results.Append($"Based on calculations, Sample is characteristic of:\n");
+            if (isWellGradedGravel)
+                results.Append("well graded gravel and/or ");
+            else
+                results.Append($"poorly graded gravel and/or ");
+            if (isWellGradedSand)
+                results.Append("well graded sand. ");
+            else
+                results.Append($"poorly graded sand. "); 
+            if (isUniformGraded)
+                results.Append("Uniform grading is conclusive.");
+            FinalResult = results.ToString();
         }
 
         [RelayCommand]

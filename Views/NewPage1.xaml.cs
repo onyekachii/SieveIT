@@ -9,6 +9,11 @@ public partial class NewPage1 : ContentPage
     public NewPage1()
 	{
         InitializeComponent();
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
         OnTab1Clicked(null, null);
     }
     private void OnTab1Clicked(object sender, EventArgs e)

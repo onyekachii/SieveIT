@@ -14,18 +14,16 @@
 
             </HorizontalStackLayout>
             <oxy:PlotView Model="{Binding PlotModeler}" x:Name="plot" HeightRequest="400" WidthRequest="400"/>
-
-            <!--<StackLayout x:Name="plotstack">
-                <oxy:PlotView x:Name="plot" HeightRequest="400" WidthRequest="400"/>
-            </StackLayout>-->
+            <Label Text="{Binding FinalResult}" FontAttributes="Bold" HorizontalOptions="Center"/>
             <CollectionView ItemsSource="{Binding Rows}">
                 <CollectionView.Header>
-                    <Grid ColumnDefinitions="*, *, *, *, *">
+                    <Grid ColumnDefinitions="*, *, *, *, *, *">
                         <Label Text="Phi Scale" Grid.Row="0" FontAttributes="Bold"/>
-                        <Label Text="Weight (g)" Grid.Row="0" FontAttributes="Bold" Grid.Column="1"/>
-                        <Label Text="Individual Weight (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="2"/>
-                        <Label Text="Cummulative Weight (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="3"/>
-                        <Label Text="Cummulative Passing (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="4"/>
+                        <Label Text="Milimeter Scale" Grid.Row="0" Grid.Column="1" FontAttributes="Bold"/>
+                        <Label Text="Weight (g)" Grid.Row="0" FontAttributes="Bold" Grid.Column="2"/>
+                        <Label Text="Individual Weight (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="3"/>
+                        <Label Text="Cummulative Weight (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="4"/>
+                        <Label Text="Cummulative Passing (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="5"/>
                     </Grid>
                 </CollectionView.Header>
                 <CollectionView.ItemTemplate>

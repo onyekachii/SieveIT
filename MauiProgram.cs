@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using OxyPlot.Maui.Skia;
 using SeiveIT.Repository;
 using SeiveIT.Repository.Implementation;
 using SeiveIT.Repository.Interface;
@@ -15,7 +16,14 @@ namespace SeiveIT
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseOxyPlotSkia()
                 .UseMauiCommunityToolkit()
+                .ConfigureMauiHandlers(handlers =>
+                 {
+                     // Explicitly register SkiaSharp handlers if needed
+                     handlers.AddHandler<SkiaSharp.Views.Maui.Controls.SKCanvasView,
+                         SkiaSharp.Views.Maui.Handlers.SKCanvasViewHandler>();
+                 })
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

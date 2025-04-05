@@ -1,6 +1,10 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using OxyPlot.Axes;
+using OxyPlot;
+using OxyPlot.Maui.Skia;
+using OxyPlot.Series;
 using SeiveIT.Entities;
 using SeiveIT.Models;
 using SeiveIT.Services.Interface;
@@ -20,13 +24,46 @@ namespace SeiveIT.ViewModels
         double _totalWeight;
         [ObservableProperty]
         double _totalInd;
-                      
+        [ObservableProperty]
+        PlotModel _plotModeler;
+
         public RawDataListViewModel(long pid, long oid)
         {
             Pid = pid;
             Oid = oid;
-
             Load();
+        }
+
+        private PlotModel CreatePlotModel()
+        {
+            var plotModel = new PlotModel { Title = "Semi-Log Plot" };
+            plotModel.Axes.Add(new LinearAxis
+            {
+                Position = AxisPosition.Left,
+                Title = "Linear X-Axis",
+                Minimum = 0,
+                Maximum = 100,
+                MinorGridlineStyle = LineStyle.LongDashDot,
+                MajorGridlineStyle = LineStyle.Solid,
+            });
+            plotModel.Axes.Add(new LogarithmicAxis
+            {
+                Position = AxisPosition.Bottom,
+                Title = "Log Y-Axis",
+                Base = 10, // Logarithm base (10 for log10, 2 for log2, etc.)
+                Minimum = 1,  // Minimum value (10^0 = 1)
+                Maximum = 10000, // Maximum value (10^4 = 10000)
+                MajorGridlineStyle = LineStyle.Solid,
+                MinorGridlineStyle = LineStyle.Dot
+            });
+            var series = new LineSeries();
+            foreach (var row in Rows)
+            {
+                series.Points.Add(new DataPoint(row.CummWeight, row.IndWeight));
+            }
+            plotModel.Series.Add(series);
+            // Add your axes and series
+            return plotModel;
         }
 
         void Load()
@@ -54,8 +91,9 @@ namespace SeiveIT.ViewModels
                     CummPassing = r.CummPassing
                 }));
             }
-
+            PlotModeler = CreatePlotModel();
         }
+
         [RelayCommand]
         void Run()
         {

@@ -26,7 +26,7 @@ namespace SeiveIT.ViewModels
                 await Shell.Current.GoToAsync($"new?pid={_outcrop.ProjectId}&oid={_outcrop.Id}");
             else
                 await Shell.Current.GoToAsync($"analyse?pid={_outcrop.ProjectId}&oid={_outcrop.Id}");
-            
+
         }
     }
 }

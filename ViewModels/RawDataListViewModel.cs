@@ -57,11 +57,10 @@ namespace SeiveIT.ViewModels
                 MinorGridlineStyle = LineStyle.Dot
             });
             var series = new LineSeries();
-            series.Points.Add(new DataPoint(1, 1));
-            series.Points.Add(new DataPoint(2, 10));
-            series.Points.Add(new DataPoint(3, 100));
-            series.Points.Add(new DataPoint(4, 1000));
-            series.Points.Add(new DataPoint(5, 10000));
+            foreach (var row in Rows)
+            {
+                series.Points.Add(new DataPoint(row.CummWeight, row.IndWeight));
+            }
             plotModel.Series.Add(series);
             // Add your axes and series
             return plotModel;

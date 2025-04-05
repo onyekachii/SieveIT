@@ -22,10 +22,12 @@ namespace SeiveIT.ViewModels
         [RelayCommand]
         async Task GotoAnalyse()
         {
-            if (DeviceInfo.Idiom == DeviceIdiom.Phone)
-                await Shell.Current.GoToAsync($"new?pid={_outcrop.ProjectId}&oid={_outcrop.Id}");
-            else
-                await Shell.Current.GoToAsync($"analyse?pid={_outcrop.ProjectId}&oid={_outcrop.Id}");
+            await Shell.Current.GoToAsync($"new?pid={_outcrop.ProjectId}&oid={_outcrop.Id}");
+
+            //if (DeviceInfo.Idiom == DeviceIdiom.Phone)
+            //    await Shell.Current.GoToAsync($"new?pid={_outcrop.ProjectId}&oid={_outcrop.Id}");
+            //else
+            //    await Shell.Current.GoToAsync($"analyse?pid={_outcrop.ProjectId}&oid={_outcrop.Id}");
 
         }
     }

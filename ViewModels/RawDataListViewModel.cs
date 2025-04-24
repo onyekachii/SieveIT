@@ -12,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace SeiveIT.ViewModels
 {
@@ -29,12 +31,19 @@ namespace SeiveIT.ViewModels
         PlotModel _plotModeler;
         [ObservableProperty]
         string _finalResult;
+        [ObservableProperty]
+        bool _hasCheckedRows;
 
         public RawDataListViewModel(long pid, long oid)
         {
             Pid = pid;
-            Oid = oid;
+            Oid = oid;            
             Load();
+        }
+
+        private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            HasCheckedRows = Rows.Any(r => r.IsChecked);
         }
 
         private PlotModel CreatePlotModel(double minPhi, double maxPhi)
@@ -70,23 +79,31 @@ namespace SeiveIT.ViewModels
 
         double GetXValueForY(double yValue)
         {
-            var lineSeries = PlotModeler.Series.OfType<LineSeries>().FirstOrDefault();
-            if (lineSeries == null)            
-                throw new InvalidOperationException("No LineSeries found in the plot.");
-            
-            for (int i = 0; i < lineSeries.Points.Count - 1; i++)
+            try
             {
-                var p1 = lineSeries.Points[i];
-                var p2 = lineSeries.Points[i + 1];
+                var lineSeries = PlotModeler.Series.OfType<LineSeries>().FirstOrDefault();
+                if (lineSeries == null)
+                    throw new InvalidOperationException("No LineSeries found in the plot.");
 
-                if ((p1.Y <= yValue && p2.Y >= yValue) || (p1.Y >= yValue && p2.Y <= yValue))
+                for (int i = 0; i < lineSeries.Points.Count - 1; i++)
                 {
-                    double xValue = p1.X + (yValue - p1.Y) * (p2.X - p1.X) / (p2.Y - p1.Y);
-                    return xValue;
-                }
-            }
+                    var p1 = lineSeries.Points[i];
+                    var p2 = lineSeries.Points[i + 1];
 
-            throw new InvalidOperationException("No intersection found for the specified Y value.");
+                    if ((p1.Y <= yValue && p2.Y >= yValue) || (p1.Y >= yValue && p2.Y <= yValue))
+                    {
+                        double xValue = p1.X + (yValue - p1.Y) * (p2.X - p1.X) / (p2.Y - p1.Y);
+                        return xValue;
+                    }
+                }
+
+                throw new InvalidOperationException("No intersection found for the specified Y value.");
+            }
+            catch (Exception ex)
+            {
+                Shell.Current.DisplayAlert("An error occured", ex.Message, "OK");
+                return 0;
+            }
         }
 
         void Load()
@@ -114,8 +131,12 @@ namespace SeiveIT.ViewModels
                     PhiScale = r.PhiScale,
                     RowNumber = r.RolNum,
                     Weight = r.Weight.ToString(),
-                    CummPassing = r.CummPassing
+                    CummPassing = r.CummPassing                    
                 }));
+                foreach (var item in Rows)
+                {
+                    item.PropertyChanged += OnPropertyChanged;
+                }
             }
         }
 
@@ -137,6 +158,7 @@ namespace SeiveIT.ViewModels
             foreach(var row in Rows)
             {
                 row.CummPassing = Math.Round(TotalInd - row.CummWeight, 3);
+                row.PropertyChanged += OnPropertyChanged;
             }
             var phiValues = Rows.Select(r => r.MiliScale);
             PlotModeler = CreatePlotModel(phiValues.Min(), phiValues.Max());
@@ -197,6 +219,26 @@ namespace SeiveIT.ViewModels
             {
                 await Toast.Make("An error has occured, send us a mail").Show();
             }
+        }
+
+        [RelayCommand]
+        void RemoveRows()
+        {
+            for (int i = Rows.Count - 1; i >= 0; i--)
+            {
+                if (Rows[i].IsChecked)                
+                    Rows.RemoveAt(i);                
+            }
+        }
+
+        [RelayCommand]
+        void AddRow(bool Up)
+        {
+            if(Up)
+                Rows.Insert(0, new RawDataViewModel());
+            else
+                Rows.Add(new RawDataViewModel());
+
         }
     }
 }

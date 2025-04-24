@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.ComponentModel;
+
 
 namespace SeiveIT.ViewModels
 {
@@ -19,7 +19,10 @@ namespace SeiveIT.ViewModels
         double _rowNumber;
         [ObservableProperty]
         double _miliScale;
+        [ObservableProperty]
+        bool _isChecked = false;
         public long Id { get; set; }
 
+       
     }
 }

@@ -19,7 +19,8 @@ public partial class RawDataRows : ContentView
         }
         catch (Exception ex)
         {
-            entry.Text = e.OldTextValue;
+            //entry.Text = e.OldTextValue;
+            // disable buttons and highlight entry red
         }
     }
 }

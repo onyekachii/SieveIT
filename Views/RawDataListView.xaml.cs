@@ -1,7 +1,3 @@
-using OxyPlot;
-using OxyPlot.Axes;
-using OxyPlot.Maui.Skia;
-using OxyPlot.Series;
 using SeiveIT.ViewModels;
 
 namespace SeiveIT.Views;
@@ -12,5 +8,5 @@ public partial class RawDataListView : ContentView
 	{
         InitializeComponent();
         BindingContext = new RawDataListViewModel(projectId, outcropId);
-    }  
+    }
 }

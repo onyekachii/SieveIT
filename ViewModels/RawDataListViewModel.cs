@@ -12,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace SeiveIT.ViewModels
 {
@@ -29,12 +31,19 @@ namespace SeiveIT.ViewModels
         PlotModel _plotModeler;
         [ObservableProperty]
         string _finalResult;
+        [ObservableProperty]
+        bool _hasCheckedRows;
 
         public RawDataListViewModel(long pid, long oid)
         {
             Pid = pid;
-            Oid = oid;
+            Oid = oid;            
             Load();
+        }
+
+        private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            HasCheckedRows = Rows.Any(r => r.IsChecked);
         }
 
         private PlotModel CreatePlotModel(double minPhi, double maxPhi)
@@ -122,8 +131,12 @@ namespace SeiveIT.ViewModels
                     PhiScale = r.PhiScale,
                     RowNumber = r.RolNum,
                     Weight = r.Weight.ToString(),
-                    CummPassing = r.CummPassing
+                    CummPassing = r.CummPassing                    
                 }));
+                foreach (var item in Rows)
+                {
+                    item.PropertyChanged += OnPropertyChanged;
+                }
             }
         }
 
@@ -145,6 +158,7 @@ namespace SeiveIT.ViewModels
             foreach(var row in Rows)
             {
                 row.CummPassing = Math.Round(TotalInd - row.CummWeight, 3);
+                row.PropertyChanged += OnPropertyChanged;
             }
             var phiValues = Rows.Select(r => r.MiliScale);
             PlotModeler = CreatePlotModel(phiValues.Min(), phiValues.Max());
@@ -205,6 +219,26 @@ namespace SeiveIT.ViewModels
             {
                 await Toast.Make("An error has occured, send us a mail").Show();
             }
+        }
+
+        [RelayCommand]
+        void RemoveRows()
+        {
+            for (int i = Rows.Count - 1; i >= 0; i--)
+            {
+                if (Rows[i].IsChecked)                
+                    Rows.RemoveAt(i);                
+            }
+        }
+
+        [RelayCommand]
+        void AddRow(bool Up)
+        {
+            if(Up)
+                Rows.Insert(0, new RawDataViewModel());
+            else
+                Rows.Add(new RawDataViewModel());
+
         }
     }
 }

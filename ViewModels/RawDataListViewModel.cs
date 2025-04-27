@@ -30,9 +30,14 @@ namespace SeiveIT.ViewModels
         [ObservableProperty]
         PlotModel _plotModeler;
         [ObservableProperty]
+        PlotModel _plotModeler2;
+        [ObservableProperty]
         string _finalResult;
         [ObservableProperty]
+        string _finalResult2;
+        [ObservableProperty]
         bool _hasCheckedRows;
+
 
         public RawDataListViewModel(long pid, long oid)
         {
@@ -46,35 +51,42 @@ namespace SeiveIT.ViewModels
             HasCheckedRows = Rows.Any(r => r.IsChecked);
         }
 
-        private PlotModel CreatePlotModel(double minPhi, double maxPhi)
+        private PlotModel CreatePlotModel(double minPhi, double maxPhi, bool forEngineer)
         {
-            var plotModel = new PlotModel { Title = "Semi-Log Plot" };
-            plotModel.Axes.Add(new LinearAxis
+            try
             {
-                Position = AxisPosition.Left,
-                Title = "Linear X-Axis",
-                Minimum = 0,
-                Maximum = 100,
-                MinorGridlineStyle = LineStyle.LongDashDot,
-                MajorGridlineStyle = LineStyle.Solid,
-            });
-            plotModel.Axes.Add(new LogarithmicAxis
-            {
-                Position = AxisPosition.Bottom,
-                Title = "Log Y-Axis",
-                Base = 10,
-                Minimum = minPhi,
-                Maximum = maxPhi,
-                MajorGridlineStyle = LineStyle.Solid,
-                MinorGridlineStyle = LineStyle.Dot
-            });
-            var series = new LineSeries();
-            foreach (var row in Rows)
-            {
-                series.Points.Add(new DataPoint(row.MiliScale, row.CummPassing));
+                var plotModel = new PlotModel { Title = "Semi-Log Plot" };
+                plotModel.Axes.Add(new LinearAxis
+                {
+                    Position = AxisPosition.Left,
+                    Title = "Linear X-Axis",
+                    Minimum = 0,
+                    Maximum = 100,
+                    MinorGridlineStyle = LineStyle.LongDashDot,
+                    MajorGridlineStyle = LineStyle.Solid,
+                });
+                plotModel.Axes.Add(new LogarithmicAxis
+                {
+                    Position = AxisPosition.Bottom,
+                    Title = "Log Y-Axis",
+                    Base = 10,
+                    Minimum = minPhi,
+                    Maximum = maxPhi,
+                    MajorGridlineStyle = LineStyle.Solid,
+                    MinorGridlineStyle = LineStyle.Dot
+                });
+                var series = new LineSeries();
+                foreach (var row in Rows)
+                {
+                    series.Points.Add(new DataPoint(row.MiliScale, forEngineer ? row.CummPassing : row.CummWeight));
+                }
+                plotModel.Series.Add(series);
+                return plotModel;
             }
-            plotModel.Series.Add(series);
-            return plotModel;
+            catch(Exception ex)
+            {
+                return null;
+            }
         }
 
         double GetXValueForY(double yValue)
@@ -118,7 +130,7 @@ namespace SeiveIT.ViewModels
                     Weight = r.Weight.ToString(),
                     Id = r.Id
                 }));
-                Run();               
+                Run();
             }
             else
             {
@@ -161,7 +173,12 @@ namespace SeiveIT.ViewModels
                 row.PropertyChanged += OnPropertyChanged;
             }
             var phiValues = Rows.Select(r => r.MiliScale);
-            PlotModeler = CreatePlotModel(phiValues.Min(), phiValues.Max());
+            BuildLogVsCummPassing(phiValues);
+            BuildLogVsCummWeight(phiValues);
+        }
+        void BuildLogVsCummPassing(IEnumerable<double> phiValues)
+        {
+            PlotModeler = CreatePlotModel(phiValues.Min(), phiValues.Max(), true);
             var d10 = GetXValueForY(10);
             var d30 = GetXValueForY(30);
             var d60 = GetXValueForY(60);
@@ -171,7 +188,7 @@ namespace SeiveIT.ViewModels
             bool isWellGradedSand = cu > 6 && cc > 1 && cc < 3;
             bool isUniformGraded = cu == 1 && cc == 1;
             StringBuilder results = new StringBuilder();
-            
+
             results.Append($"Coefficient of Curvature: {cc}\n");
             results.Append($"Uniformity: {cu}\n");
             results.Append($"D10: {d10}\n");
@@ -185,10 +202,41 @@ namespace SeiveIT.ViewModels
             if (isWellGradedSand)
                 results.Append("well graded sand. ");
             else
-                results.Append($"poorly graded sand. "); 
+                results.Append($"poorly graded sand. ");
             if (isUniformGraded)
                 results.Append("Uniform grading is conclusive.");
             FinalResult = results.ToString();
+        }
+        void BuildLogVsCummWeight(IEnumerable<double> phiValues)
+        {
+            PlotModeler2 = CreatePlotModel(phiValues.Min(), phiValues.Max(), false);
+            if (PlotModeler2 is null)
+                return;
+
+            var d95 = GetXValueForY(95);
+            var d84 = GetXValueForY(84);
+            var d75 = GetXValueForY(75);
+            var d50 = GetXValueForY(50);
+            var d25 = GetXValueForY(25);
+            var d16 = GetXValueForY(16);
+            var d5 = GetXValueForY(5);
+            var graphicMeanSize = (d84 + d50 + d16) / 3;
+            var standardDeviation = ((d84 - d16) / 4) + ((d95 - d5) / 6.6);
+            var inclusiveGraphicSkewness = ((d16 + d84 - (2 * d50)) / 2 * (d84 - d16)) + ((d5 + d95 - (2 * d50)) / 2 * (d95 - d5));
+            var graphicKurtosis = (d95 - d5) / (2.44 * (d75 - d25));
+
+            StringBuilder results = new StringBuilder();
+
+            results.Append($"Graphic Mean Size: {graphicMeanSize}\n");
+            results.Append($"Standard Deviation: {standardDeviation}\n");
+            results.Append($"D95: {d95}\n");
+            results.Append($"D84: {d84}\n");
+            results.Append($"D75: {d75}\n");
+            results.Append($"D50: {d50}\n");
+            results.Append($"D25: {d25}\n");
+            results.Append($"D16: {d16}\n");
+            results.Append($"D5: {d5}\n");
+            FinalResult2 = results.ToString();
         }
 
         [RelayCommand]

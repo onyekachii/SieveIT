@@ -14,6 +14,8 @@
             </HorizontalStackLayout>
             <oxy:PlotView Model="{Binding PlotModeler}" x:Name="plot" HeightRequest="400" WidthRequest="400"/>
             <Label Text="{Binding FinalResult}" FontAttributes="Bold" HorizontalOptions="Center"/>
+            <oxy:PlotView Model="{Binding PlotModeler2}" HeightRequest="400" WidthRequest="400"/>
+            <Label Text="{Binding FinalResult2}" FontAttributes="Bold" HorizontalOptions="Center"/>
             <Button Text="Remove" Command="{Binding RemoveRowsCommand}" IsEnabled="{Binding HasCheckedRows}"></Button>
 
             <CollectionView ItemsSource="{Binding Rows}">
@@ -26,9 +28,9 @@
                         <Label Text="Individual Weight (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="4"/>
                         <Label Text="Cummulative Weight (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="5"/>
                         <Label Text="Cummulative Passing (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="6"/>
-                        <Button Text="Jesus" Grid.Row="1" 
+                        <Button Text="Add down" Grid.Row="1" 
                                 Command="{Binding AddRowCommand}" CommandParameter="{x:Boolean false}"/>
-                        <Button Text="Christ" Grid.Row="1" Grid.Column="1"
+                        <Button Text="Add up" Grid.Row="1" Grid.Column="1"
                                 Command="{Binding AddRowCommand}" CommandParameter="{x:Boolean true}"/>
 
                     </Grid>

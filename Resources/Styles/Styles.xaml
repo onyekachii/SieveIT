@@ -163,7 +163,7 @@
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="OpenSansRegular" />
+        <Setter Property="FontFamily" Value="Cormorant" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
@@ -393,8 +393,8 @@
     </Style>
 
     <Style TargetType="Page" ApplyToDerivedTypes="True">
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}" />
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LighBgColor}, Dark={StaticResource OffBlack}}" />
     </Style>
 
     <Style TargetType="Shell" ApplyToDerivedTypes="True">

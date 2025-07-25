@@ -4,9 +4,25 @@
              xmlns:views="clr-namespace:SeiveIT.Views"
              x:Class="SeiveIT.Views.LobbyPage">
     <VerticalStackLayout>
-        <Button
-            Text="New Project" Clicked="displayPopup"
-            />
+        <Grid 
+            Margin="0, 0, 0, 50"
+            ColumnDefinitions="*, Auto" 
+            RowDefinitions="*">
+            <Label 
+                FontFamily="Cormorant"
+                FontSize="24"
+                FontAttributes="Bold"
+                Text="Projects" 
+                Grid.Row="0" 
+                Grid.Column="0" />
+
+            <Button 
+                Text="Create Project" 
+                Clicked="displayPopup" 
+                Grid.Row="0" 
+                Grid.Column="1"/>
+        </Grid>
+        
         <views:ProjectCardListView/>
     </VerticalStackLayout>
 </ContentPage>

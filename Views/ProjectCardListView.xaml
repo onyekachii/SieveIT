@@ -11,12 +11,14 @@
     </ContentView.Resources>
     <FlexLayout>
         <CollectionView IsVisible="{Binding HasProjects}" ItemsSource="{Binding projectCards}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout x:Name="MyItemsLayout" Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <views:ProjectCardView/>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Label IsVisible="{Binding HasProject, Converter={StaticResource BoolNegationConverter}}" Text="no previous projects..."/>
     </FlexLayout>  
 </ContentView>

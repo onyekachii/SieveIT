@@ -28,6 +28,8 @@ namespace SeiveIT
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("CormorantGaramond-VariableFont_wght.ttf", "Cormorant");
+                    fonts.AddFont("CormorantGaramond-Italic-VariableFont_wght.ttf", "Cormorant-italic");
                 });
 
             string dbPath = Path.Combine( FileSystem.AppDataDirectory, "seiveIT.db3" );

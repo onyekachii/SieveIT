@@ -23,6 +23,6 @@
                 Grid.Column="1"/>
         </Grid>
         
-        <views:ProjectCardListView/>
+        <views:ProjectCardListView HorizontalOptions="Center"/>
     </VerticalStackLayout>
 </ContentPage>

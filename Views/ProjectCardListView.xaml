@@ -10,7 +10,8 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <FlexLayout>
-        <CollectionView IsVisible="{Binding HasProjects}" ItemsSource="{Binding projectCards}">
+        <CollectionView IsVisible="{Binding HasProjects}" 
+                        ItemsSource="{Binding projectCards}">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout x:Name="MyItemsLayout" Orientation="Vertical"/>
             </CollectionView.ItemsLayout>

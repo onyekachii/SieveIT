@@ -2,33 +2,48 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SeiveIT.Views.popups.AddprojectPopup"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="10">
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             VerticalOptions="Center"
+             HorizontalOptions="Center"
+             Size="500,300"
+             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+             CanBeDismissedByTappingOutsideOfPopup="True">
+    <Grid>
+        <Border 
+            BackgroundColor="White"
+            >
+            <ScrollView>
+                <VerticalStackLayout Padding="20" Spacing="10">
+                    <Label Text="Title"/>
+                    <Entry x:Name="TitleEntry" Text="{Binding Title}" Placeholder="Enter title"/>
 
-            <Label Text="Title"/>
-            <Entry x:Name="TitleEntry" Text="{Binding Title}" Placeholder="Enter title"/>
+                    <Label Text="Date"/>
+                    <DatePicker x:Name="DatePicker" Date="{Binding Date}"/>
 
-            <Label Text="Date"/>
-            <DatePicker x:Name="DatePicker" Date="{Binding Date}"/>
+                    <Label Text="Latitude Lower Limit"/>
+                    <Entry x:Name="LatitudeEntryL" Text="{Binding LatitudeL}" Placeholder="Enter latitude"/>
 
-            <Label Text="Latitude Lower Limit"/>
-            <Entry x:Name="LatitudeEntryL" Text="{Binding LatitudeL}" Placeholder="Enter latitude"/>
+                    <Label Text="Latitude Higher Limit"/>
+                    <Entry x:Name="LatitudeEntryH" Text="{Binding LatitudeH}" Placeholder="Enter latitude"/>
 
-            <Label Text="Latitude Higher Limit"/>
-            <Entry x:Name="LatitudeEntryH" Text="{Binding LatitudeH}" Placeholder="Enter latitude"/>
+                    <Label Text="Longitude Lower Limit"/>
+                    <Entry x:Name="LongitudeEntryL" Text="{Binding LongitudeL}" Placeholder="Enter longitude"/>
 
-            <Label Text="Longitude Lower Limit"/>
-            <Entry x:Name="LongitudeEntryL" Text="{Binding LongitudeL}" Placeholder="Enter longitude"/>
+                    <Label Text="Longitude Higher Limit"/>
+                    <Entry x:Name="LongitudeEntryH" Text="{Binding LongitudeH}" Placeholder="Enter longitude"/>
 
-            <Label Text="Longitude Higher Limit"/>
-            <Entry x:Name="LongitudeEntryH" Text="{Binding LongitudeH}" Placeholder="Enter longitude"/>
+                    <Label Text="Notes"/>
+                    <Editor x:Name="NotesEditor" Text="{Binding Notes}" Placeholder="Enter notes" MaxLength="250" HeightRequest="100"/>
 
-            <Label Text="Notes"/>
-            <Editor x:Name="NotesEditor" Text="{Binding Notes}" Placeholder="Enter notes" MaxLength="250" HeightRequest="100"/>
-
-            <Button Text="Save" Command="{Binding SaveCommand}"/>
-            <Button Text="Cancel" Command="{Binding CancelCommand}"/>
-        </VerticalStackLayout>
-    </ScrollView>
+                    <HorizontalStackLayout
+                        HorizontalOptions="Center"
+                        Spacing="10">
+                        <Button Text="Save" WidthRequest="80" Command="{Binding SaveCommand}"/>
+                        <Button Text="Cancel" WidthRequest="80" Command="{Binding CancelCommand}"/>
+                    </HorizontalStackLayout>
+                    
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>       
+    </Grid>
 </toolkit:Popup>

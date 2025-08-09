@@ -4,8 +4,23 @@
              x:Class="SeiveIT.Views.ProjectPage"
              xmlns:views="clr-namespace:SeiveIT.Views">
     <VerticalStackLayout x:Name="mainlayout">
-        <Button
-        Text="New Outcrop" Clicked="displayPopup"
-        />
+        <Grid
+            Margin="0,0,0,50"
+            ColumnDefinitions="*, Auto"
+            RowDefinitions="*">
+            <Label
+                FontFamily="Cormorant"
+                FontSize="24"
+                FontAttributes="Bold"
+                Text="Outcrops" 
+                Grid.Row="0" 
+                Grid.Column="0" />
+            <Button 
+                Text="New Outcrop" 
+                Clicked="displayPopup" 
+                Grid.Row="0" 
+                Grid.Column="1"/>
+
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

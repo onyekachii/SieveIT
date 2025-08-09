@@ -10,6 +10,7 @@ public partial class OutcropListView : ContentView
         OutcropListViewModel OutcropListViewModel = new OutcropListViewModel();
         OutcropListViewModel.ProjectId = projectid;
         BindingContext = OutcropListViewModel;
+        MyItemsLayout.Span = OutcropListViewModel?.outcrops?.Count > 1 ? 2 : 1;
     }
 
 }

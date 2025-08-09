@@ -10,7 +10,11 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <FlexLayout>
-        <CollectionView IsVisible="{Binding HasOutcrops}" ItemsSource="{Binding outcrops}">
+        <CollectionView IsVisible="{Binding HasOutcrops}" 
+                        ItemsSource="{Binding outcrops}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout x:Name="MyItemsLayout" Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <views:OutcropView/>

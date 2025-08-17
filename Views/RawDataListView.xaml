@@ -6,34 +6,53 @@
              xmlns:views="clr-namespace:SeiveIT.Views">
     <ScrollView VerticalScrollBarVisibility="Always">
         <VerticalStackLayout>
-            <HorizontalStackLayout>
-                <Label Text="{Binding TotalWeight}" Grid.Column="1" FontAttributes="Bold"/>
-                <Label Text="{Binding TotalInd}" Grid.Column="2" FontAttributes="Bold"/>
-                <Button Text="Run" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="1"  Command="{Binding RunCommand}"></Button>
-                <Button Text="Save" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="1" Command="{Binding SaveCommand}"></Button>
-            </HorizontalStackLayout>
-            <oxy:PlotView Model="{Binding PlotModeler}" x:Name="plot" HeightRequest="400" WidthRequest="400"/>
-            <Label Text="{Binding FinalResult}" FontAttributes="Bold" HorizontalOptions="Center"/>
-            <oxy:PlotView Model="{Binding PlotModeler2}" HeightRequest="400" WidthRequest="400"/>
-            <Label Text="{Binding FinalResult2}" FontAttributes="Bold" HorizontalOptions="Center"/>
-            <Button Text="Remove" Command="{Binding RemoveRowsCommand}" IsEnabled="{Binding HasCheckedRows}"></Button>
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand"
+                                   Margin="0,0,0,15">
+                <!--<Label Text="{Binding TotalWeight}" Grid.Column="1" FontAttributes="Bold"/>-->
+                <!--<Label Text="{Binding TotalInd}" Grid.Column="2" FontAttributes="Bold"/>-->
+                <Button 
+                    Text="Run" 
+                    Grid.Column="0" 
+                    Grid.Row="1"
+                    Style="{StaticResource SecondaryButton}"
+                    Command="{Binding RunCommand}"></Button>
+                <Button Text="Save" 
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Style="{StaticResource SecondaryButton}"
+                        Command="{Binding SaveCommand}"></Button>                
+                <Button 
+                    Text="Remove" 
+                    Grid.Column="2" 
+                    Grid.Row="1"
+                    Style="{StaticResource SecondaryButton}"
+                    Command="{Binding RemoveRowsCommand}" 
+                    IsEnabled="{Binding HasCheckedRows}"></Button>
+                <Button Text="Add down" 
+                        Grid.Column="3"
+                        Grid.Row="1" 
+                        Style="{StaticResource SecondaryButton}"
+                        Command="{Binding AddRowCommand}" 
+                        CommandParameter="{x:Boolean false}"/>
+                <Button Text="Add up" 
+                        Grid.Column="4"
+                        Grid.Row="1" 
+                        Style="{StaticResource SecondaryButton}"
+                        Command="{Binding AddRowCommand}" 
+                        CommandParameter="{x:Boolean true}"/>
 
+            </HorizontalStackLayout>
             <CollectionView ItemsSource="{Binding Rows}">
                 <CollectionView.Header>
-                    <Grid ColumnDefinitions="*, *, *, *, *, *, *" RowDefinitions="*, *">
+                    <Grid ColumnDefinitions="40, *, *, *, *, *, *" RowDefinitions="*, *">
                         <Label Text="" Grid.Row="0"/>
-                        <Label Text="Phi Scale" Grid.Row="0" Grid.Column="1" FontAttributes="Bold"/>
-                        <Label Text="Milimeter Scale" Grid.Row="0" Grid.Column="2" FontAttributes="Bold"/>
-                        <Label Text="Weight (g)" Grid.Row="0" FontAttributes="Bold" Grid.Column="3"/>
-                        <Label Text="Individual Weight (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="4"/>
-                        <Label Text="Cummulative Weight (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="5"/>
-                        <Label Text="Cummulative Passing (%)" Grid.Row="0" FontAttributes="Bold" Grid.Column="6"/>
-                        <Button Text="Add down" Grid.Row="1" 
-                                Command="{Binding AddRowCommand}" CommandParameter="{x:Boolean false}"/>
-                        <Button Text="Add up" Grid.Row="1" Grid.Column="1"
-                                Command="{Binding AddRowCommand}" CommandParameter="{x:Boolean true}"/>
-
-                    </Grid>
+                        <Label Text="Phi Scale" HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="1" FontAttributes="Bold"/>
+                        <Label Text="Millimeter Scale" HorizontalTextAlignment="Center" Grid.Row="0" Grid.Column="2" FontAttributes="Bold"/>
+                        <Label Text="Weight (g)" HorizontalTextAlignment="Center" Grid.Row="0" FontAttributes="Bold" Grid.Column="3"/>
+                        <Label Text="Individual Weight (%)" HorizontalTextAlignment="Center" Grid.Row="0" FontAttributes="Bold" Grid.Column="4"/>
+                        <Label Text="Cummulative Weight (%)" HorizontalTextAlignment="Center" Grid.Row="0" FontAttributes="Bold" Grid.Column="5"/>
+                        <Label Text="Cummulative Passing (%)" HorizontalTextAlignment="Center" Grid.Row="0" FontAttributes="Bold" Grid.Column="6"/>
+                    </Grid>                   
                 </CollectionView.Header>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -41,6 +60,12 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <oxy:PlotView Model="{Binding PlotModeler}" x:Name="plot" HeightRequest="400" WidthRequest="400"/>
+            <Label Text="{Binding FinalResult}" FontAttributes="Bold" HorizontalOptions="Center"/>
+            <oxy:PlotView Model="{Binding PlotModeler2}" HeightRequest="400" WidthRequest="400"/>
+            <Label Text="{Binding FinalResult2}" FontAttributes="Bold" HorizontalOptions="Center"/>
+
+            
         </VerticalStackLayout>
     </ScrollView>
 </ContentView>

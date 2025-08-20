@@ -21,8 +21,7 @@
                 Clicked="displayPopup" 
                 Grid.Row="0" 
                 Grid.Column="1"/>
-        </Grid>
-        
+        </Grid>        
         <views:ProjectCardListView HorizontalOptions="Center"/>
     </VerticalStackLayout>
 </ContentPage>

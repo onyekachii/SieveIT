@@ -2,22 +2,67 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SeiveIT.Views.RawDataRows">
-        <Grid ColumnDefinitions="*, *, *, *, *, *, *">
-        <CheckBox 
-            IsChecked="{Binding IsChecked}"            
-            Grid.Row="{Binding RowNumber}"/>
-        <Entry 
-                Text="{Binding PhiScale}" 
-                TextChanged="OnTextChanged"
-                Keyboard="Numeric"
-                Grid.Row="{Binding RowNumber}" Grid.Column="1"/>
-            <Label Text="{Binding MiliScale}" Grid.Row="{Binding RowNumber}" Grid.Column="2"/>
+        <Grid ColumnDefinitions="40, *, *, *, *, *, *">
+        <Border Stroke="Black"
+                StrokeThickness="1">
+            <CheckBox IsChecked="{Binding IsChecked}"            
+                      Grid.Row="{Binding RowNumber}"
+                      HorizontalOptions="Center"/>
+        </Border>
+            
+        <Border Stroke="Black"
+                StrokeThickness="1"
+                Grid.Row="{Binding RowNumber}" 
+                Grid.Column="1">
+            <Entry Text="{Binding PhiScale}" 
+                   HorizontalTextAlignment="Center"
+                   TextChanged="OnTextChanged"
+                   Keyboard="Numeric" />
+        </Border>
+                        
+        <Border Style="{StaticResource SecondaryBorder}" Stroke="Black"
+                StrokeThickness="1"
+                Grid.Row="{Binding RowNumber}" 
+                Grid.Column="2">
+            <Label Text="{Binding MiliScale}" 
+                   HorizontalTextAlignment="Center" />            
+        </Border>
+            
+        <Border Stroke="Black"
+                StrokeThickness="1"
+                Grid.Row="{Binding RowNumber}" 
+                Grid.Column="3">
             <Entry Text="{Binding Weight}"
+                   HorizontalTextAlignment="Center"
                    TextChanged="OnTextChanged" 
-                   Grid.Row="{Binding RowNumber}" Grid.Column="3"
                    Keyboard="Numeric"/>
-            <Label Text="{Binding IndWeight}" Grid.Row="{Binding RowNumber}" Grid.Column="4" VerticalOptions="Center"/>
-            <Label Text="{Binding CummWeight}" Grid.Row="{Binding RowNumber}" Grid.Column="5" VerticalOptions="Center"/>
-            <Label Text="{Binding CummPassing}" Grid.Row="{Binding RowNumber}" Grid.Column="6" VerticalOptions="Center"/>
+        </Border>
+
+        <Border Style="{StaticResource SecondaryBorder}" Stroke="Black"
+                StrokeThickness="1"
+                Grid.Row="{Binding RowNumber}" 
+                Grid.Column="4">
+            <Label Text="{Binding IndWeight}" 
+                   HorizontalTextAlignment="Center"
+                   VerticalOptions="Center"/>
+        </Border>
+            
+        <Border Style="{StaticResource SecondaryBorder}" Stroke="Black"
+        StrokeThickness="1"
+        Grid.Row="{Binding RowNumber}" 
+        Grid.Column="5">
+            <Label Text="{Binding CummWeight}"
+                   HorizontalTextAlignment="Center"
+                   VerticalOptions="Center"/>
+        </Border>
+            
+        <Border Style="{StaticResource SecondaryBorder}" Stroke="Black"
+                StrokeThickness="1"
+                Grid.Row="{Binding RowNumber}" 
+                Grid.Column="6">
+            <Label Text="{Binding CummPassing}" 
+                   HorizontalTextAlignment="Center"
+                   VerticalOptions="Center"/>
+        </Border>
     </Grid>
 </ContentView>

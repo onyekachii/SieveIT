@@ -2,11 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SeiveIT.Views.NewPage1"
-             Title="NewPage1">
+             >
     <ScrollView>
         <VerticalStackLayout x:Name="TabContent">
             <StackLayout Orientation="Horizontal">
-                <Button Text="Tab 1" Clicked="OnTab1Clicked"/>
+                <!--<Button Text="Tab 1" Clicked="OnTab1Clicked"/>-->
             </StackLayout>
         </VerticalStackLayout>
     </ScrollView>

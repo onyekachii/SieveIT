@@ -52,10 +52,10 @@ namespace SeiveIT.ViewModels
                     Title = Title
                 });
 
+                await Cancel();
                 await Toast.Make("Project saved").Show();
                 await Shell.Current.GoToAsync($"project?id={proj.Id}");
             }
-
             catch (SQLite.SQLiteException e)
             {
                 var a = e.GetType();

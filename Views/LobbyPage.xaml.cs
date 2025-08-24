@@ -12,6 +12,13 @@ public partial class LobbyPage : ContentPage
 		InitializeComponent();
         _serviceManager = sm;
     }
-	public void displayPopup(object sender, EventArgs e) => this.ShowPopup(new AddprojectPopup(_serviceManager));
+
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        base.OnNavigatedTo(args);
+        InitializeComponent();
+       
+    }
+    public void displayPopup(object sender, EventArgs e) => this.ShowPopup(new AddprojectPopup(_serviceManager));
     
 }

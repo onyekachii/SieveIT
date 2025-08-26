@@ -28,7 +28,7 @@
                 FontSize="{OnPlatform iOS='Small', Android='Small', Default='15'}" 
                 FontAttributes="Bold" />
             <Label 
-                Text="{Binding Date, StringFormat='{0:dd MMM, yyyy h:mmtt}'}"
+                Text="{Binding Date, StringFormat='{0:dd MMM, yyyy}'}"
                 HorizontalTextAlignment="Center"
                 FontSize="{OnPlatform iOS='Small', Android='Small', Default='14'}" 
                 FontAttributes="None"/>

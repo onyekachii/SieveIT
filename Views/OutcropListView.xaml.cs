@@ -4,13 +4,35 @@ namespace SeiveIT.Views;
 
 public partial class OutcropListView : ContentView
 {
-    public OutcropListView(long projectid)
-	{
-		InitializeComponent();
-        OutcropListViewModel OutcropListViewModel = new OutcropListViewModel();
-        OutcropListViewModel.ProjectId = projectid;
+    static OutcropListViewModel OutcropListViewModel;
+
+    public static readonly BindableProperty ProjectIdProperty =
+      BindableProperty.Create(
+          nameof(ProjectId),
+          typeof(long),
+          typeof(OutcropListView),
+          default(long),
+          propertyChanged: OnProjectIdChanged);
+
+    public long ProjectId
+    {
+        get => (long)GetValue(ProjectIdProperty);
+        set => SetValue(ProjectIdProperty, value);
+    }
+    public OutcropListView()
+    {
+        InitializeComponent();
         BindingContext = OutcropListViewModel;
-        MyItemsLayout.Span = OutcropListViewModel?.outcrops?.Count > 1 ? 2 : 1;
+
     }
 
+    private static void OnProjectIdChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (OutcropListView)bindable;
+        if (newValue is long projectId)
+        {
+            OutcropListViewModel = new OutcropListViewModel();
+            OutcropListViewModel.ProjectId = projectId;
+        }
+    }
 }

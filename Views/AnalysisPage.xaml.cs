@@ -8,14 +8,14 @@ public partial class AnalysisPage : TabbedPage
 {
     public long ProjectId { get; set; }
     public long OutcropId { get; set; }
-    public AnalysisPage()
+    public AnalysisPage() => InitializeComponent();
+    
+    protected override void OnAppearing()
     {
-        InitializeComponent();
-        Loaded += AnalysisPage_Loaded;
-    }
+        base.OnAppearing();
+        if (Children.Any(p => p.Title == "Raw data"))
+            return;
 
-    private void AnalysisPage_Loaded(object? sender, EventArgs e)
-    {
         var flexlayout = new FlexLayout();
         flexlayout.Children.Add(new RawDataListView(ProjectId, OutcropId));
 
@@ -34,7 +34,7 @@ public partial class AnalysisPage : TabbedPage
                 Console.WriteLine($"Error adding page: {ex.Message}");
             }
         }
-
-           // Children.Add(pageOne);
     }
+
+  
 }

@@ -9,11 +9,14 @@
             <converters:BoolToInverseBoolConverter x:Key="BoolNegationConverter"/>
         </ResourceDictionary>
     </ContentView.Resources>
-    <FlexLayout>
+    <Grid RowDefinitions="*, Auto">
         <CollectionView IsVisible="{Binding HasOutcrops}" 
-                        ItemsSource="{Binding outcrops}">
+                        ItemsSource="{Binding outcrops}"
+                        Grid.Row="0">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout x:Name="MyItemsLayout" Orientation="Vertical"/>
+                <GridItemsLayout x:Name="MyItemsLayout" 
+                                 Span="3"
+                                 Orientation="Vertical"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -21,6 +24,8 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Label IsVisible="{Binding HasOutcrops, Converter={StaticResource BoolNegationConverter}}" Text="no previous projects..."/>
-    </FlexLayout>
+        <Label IsVisible="{Binding HasOutcrops, Converter={StaticResource BoolNegationConverter}}" 
+               Text="no previous projects..."
+               Grid.Row="1"/>
+    </Grid>
 </ContentView>

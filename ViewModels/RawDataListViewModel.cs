@@ -126,7 +126,7 @@ namespace SeiveIT.ViewModels
                 Rows = new ObservableCollection<RawDataViewModel>(data.OrderBy(d => d.PhiScale).Select(r => new RawDataViewModel
                 {
                     PhiScale = r.PhiScale,
-                    MiliScale = Math.Pow(2, -r.PhiScale),
+                    MiliScale = Math.Round( Math.Pow(2, -r.PhiScale), 3, MidpointRounding.AwayFromZero ),
                     Weight = r.Weight.ToString(),
                     Id = r.Id
                 }));
@@ -137,7 +137,7 @@ namespace SeiveIT.ViewModels
                 Rows = new ObservableCollection<RawDataViewModel>(RawData.GetRows()
                 .Select(r => new RawDataViewModel
                 {
-                    MiliScale = Math.Pow(2, -r.PhiScale),
+                    MiliScale = Math.Round(Math.Pow(2, -r.PhiScale), 3, MidpointRounding.AwayFromZero),
                     CummWeight = r.CummWeight,
                     IndWeight = r.IndWeight,
                     PhiScale = r.PhiScale,
@@ -155,26 +155,40 @@ namespace SeiveIT.ViewModels
         [RelayCommand]
         void Run()
         {
-            TotalWeight = Math.Round(Rows.Sum(r => float.Parse(r.Weight)), 1);
-            double totalInd = 0;
-            double prevRow = 0;
-            foreach (var row in Rows)
+            try
             {
-                row.IndWeight = Math.Round( (100 * float.Parse(row.Weight)) / TotalWeight, 3);
-                row.CummWeight = 0;
-                row.CummWeight = Math.Round(prevRow + row.IndWeight, 3);
-                prevRow = row.CummWeight;
-                totalInd += row.IndWeight;
+                if(Rows.Any(r => string.IsNullOrEmpty(r.Weight)))
+                {
+                    Shell.Current.DisplayAlert("Invalid data", $"Weights cannot be empty: Check weights input", "OK");
+                    return;
+                }
+                TotalWeight = Math.Round(Rows.Sum(r => float.Parse(r.Weight)), 1);
+                double totalInd = 0;
+                double prevRow = 0;
+                foreach (var row in Rows)
+                {
+                    row.MiliScale = Math.Round(Math.Pow(2, -row.PhiScale), 3, MidpointRounding.AwayFromZero);
+                    row.IndWeight = Math.Round((100 * float.Parse(row.Weight)) / TotalWeight, 3);
+                    row.CummWeight = 0;
+                    row.CummWeight = Math.Round(prevRow + row.IndWeight, 3);
+                    prevRow = row.CummWeight;
+                    totalInd += row.IndWeight;
+                }
+                TotalInd = Math.Round(totalInd);
+                foreach (var row in Rows)
+                {
+                    row.CummPassing = Math.Round(TotalInd - row.CummWeight, 3);
+                    row.PropertyChanged += OnPropertyChanged;
+                }
+                var phiValues = Rows.Select(r => r.MiliScale);
+                BuildLogVsCummPassing(phiValues);
+                BuildLogVsCummWeight(phiValues);
             }
-            TotalInd = Math.Round(totalInd);  
-            foreach(var row in Rows)
+            catch (Exception ex)
             {
-                row.CummPassing = Math.Round(TotalInd - row.CummWeight, 3);
-                row.PropertyChanged += OnPropertyChanged;
+                Shell.Current.DisplayAlert("An error occured", ex.Message, "OK");
+                return;
             }
-            var phiValues = Rows.Select(r => r.MiliScale);
-            BuildLogVsCummPassing(phiValues);
-            BuildLogVsCummWeight(phiValues);
         }
         void BuildLogVsCummPassing(IEnumerable<double> phiValues)
         {

@@ -25,6 +25,14 @@ internal abstract class RepositoryBase<T> : IRepositoryBase<T> where T : BaseEnt
 
     public async Task<int> DeleteAsync(T entity) => await _connection.DeleteAsync(entity);
 
+    public async Task DeleteAllAsync(List<T> entity)
+    {
+        foreach (var e in entity)
+        {
+            await _connection.DeleteAsync(e);
+        }
+    }
+
     public async Task<List<T>> FindAll(int page, int limit)
     {
                 return await _connection.Table<T>().Skip(page * limit).Take(limit).ToListAsync();

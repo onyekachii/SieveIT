@@ -11,6 +11,7 @@ namespace SeiveIT.Repository.Interface
         Task CreateAsync(T entity);
         Task UpdateAsync(T entity);
         Task<int> DeleteAsync(T entity);
+        Task DeleteAllAsync(List<T> entity);
         Task Upsert(T entity);
         Task UpsertAll(List<T> entity);
     }

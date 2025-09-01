@@ -23,6 +23,7 @@ namespace SeiveIT.ViewModels
         public long Pid { get; set; }
         public long Oid { get; set; }
         public ObservableCollection<RawDataViewModel> Rows { get; set; }
+        public List<RawDataViewModel> RemovedRows { get; set; } = new List<RawDataViewModel>();
         [ObservableProperty]
         double _totalWeight;
         [ObservableProperty]
@@ -264,10 +265,22 @@ namespace SeiveIT.ViewModels
                     PhiScale = r.PhiScale,
                     Weight = float.Parse(r.Weight),
                     OutcropId = Oid,
-                    ProjectId = Pid
+                    ProjectId = Pid,
                 }).ToList();
-                await _serviceManager.RawDataService.UpsertSeiveData(data);                                           
-
+                await _serviceManager.RawDataService.UpsertSeiveData(data);
+                if(RemovedRows.Count >= 1)
+                {
+                    var removeData = RemovedRows.Select(r => new SeiveData
+                    {
+                        Id = r.Id,
+                        PhiScale = r.PhiScale,
+                        Weight = float.Parse(r.Weight),
+                        OutcropId = Oid,
+                        ProjectId = Pid,
+                    }).ToList();
+                    await _serviceManager.RawDataService.DeleteAll(removeData);
+                    RemovedRows.Clear();
+                }
                 await Toast.Make("Project saved").Show();
                 //await Shell.Current.GoToAsync($"project?id={proj.Id}");
             }
@@ -288,8 +301,11 @@ namespace SeiveIT.ViewModels
         {
             for (int i = Rows.Count - 1; i >= 0; i--)
             {
-                if (Rows[i].IsChecked)                
-                    Rows.RemoveAt(i);                
+                if (Rows[i].IsChecked)
+                {
+                    RemovedRows.Add(Rows[i]);
+                    Rows.RemoveAt(i);
+                }
             }
         }
 

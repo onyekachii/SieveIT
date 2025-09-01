@@ -11,5 +11,6 @@ namespace SeiveIT.Services.Interface
     {
         Task<List<SeiveData>> Get(long projectId, long outcropId);
         Task UpsertSeiveData(List<SeiveData> entity);
+        Task DeleteAll(List<SeiveData> entity);
     }
 }

@@ -43,15 +43,13 @@ namespace SeiveIT.ViewModels
                     Title = Title,
                     ProjectId = _projectId                
                 });
-
-                await Toast.Make("Outcrop saved").Show();
+                await Cancel();
                 await Shell.Current.GoToAsync($"analyse?pid={_projectId}&oid={outcrop.Id}");
             }
-
             catch (SQLite.SQLiteException e)
             {
                 var a = e.GetType();
-                string errMsg = e.Message.Contains("UNIQUE constraint failed") ? "Title already exists" : "Unable to Save data, send us a mail";
+                string errMsg = e.Message.Contains("UNIQUE constraint failed") ? "Title already exists in this or another project" : "Unable to Save data, send us a mail";
                 await Toast.Make(errMsg).Show();
             }
             catch (Exception e)

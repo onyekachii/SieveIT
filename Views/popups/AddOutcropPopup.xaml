@@ -2,27 +2,40 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SeiveIT.Views.popups.AddOutcropPopup"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="10">
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             VerticalOptions="Center"
+             HorizontalOptions="Center"
+             Size="500,300"
+             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+             CanBeDismissedByTappingOutsideOfPopup="True">
+    <Grid>
+        <Border BackgroundColor="White">
+            <ScrollView>
+                <VerticalStackLayout Padding="20" Spacing="10">
 
-            <Label Text="Title"/>
-            <Entry x:Name="TitleEntry" Text="{Binding Title}" Placeholder="Enter title"/>
+                    <Label Text="Title"/>
+                    <Entry x:Name="TitleEntry" Text="{Binding Title}" Placeholder="Enter title"/>
 
-            <Label Text="Basin"/>
-            <Entry x:Name="Basin" Text="{Binding Basin}" Placeholder="Enter basin"/>
+                    <Label Text="Basin"/>
+                    <Entry x:Name="Basin" Text="{Binding Basin}" Placeholder="Enter basin"/>
 
-            <Label Text="Formation"/>
-            <Entry x:Name="Formation" Text="{Binding Formation}" Placeholder="Enter formation"/>
-            
-            <Label Text="Date"/>
-            <DatePicker x:Name="DatePicker" Date="{Binding Date}"/>
+                    <Label Text="Formation"/>
+                    <Entry x:Name="Formation" Text="{Binding Formation}" Placeholder="Enter formation"/>
 
-            <Label Text="Altitude"/>
-            <Entry x:Name="Altitude" Text="{Binding Altitude}" Placeholder="Enter altitude"/>
+                    <Label Text="Date"/>
+                    <DatePicker x:Name="DatePicker" Date="{Binding Date}"/>
 
-            <Button Text="Save" Command="{Binding SaveCommand}"/>
-            <Button Text="Cancel" Command="{Binding CancelCommand}"/>
-        </VerticalStackLayout>
-    </ScrollView>
+                    <Label Text="Altitude"/>
+                    <Entry x:Name="Altitude" Text="{Binding Altitude}" Placeholder="Enter altitude"/>
+
+                    <HorizontalStackLayout
+                    HorizontalOptions="Center"
+                    Spacing="10">
+                        <Button Text="Save"  WidthRequest="80" Command="{Binding SaveCommand}"/>
+                        <Button Text="Cancel"  WidthRequest="80" Command="{Binding CancelCommand}"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
+    </Grid>
 </toolkit:Popup>

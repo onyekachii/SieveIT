@@ -52,15 +52,14 @@ namespace SeiveIT.ViewModels
                     Title = Title
                 });
 
-                await Toast.Make("Project saved").Show();
+                await Cancel();
                 await Shell.Current.GoToAsync($"project?id={proj.Id}");
             }
-
             catch (SQLite.SQLiteException e)
             {
                 var a = e.GetType();
                 string errMsg = e.Message.Contains("UNIQUE constraint failed") ? "Title already exists" : "Unable to Save data, send us a mail";
-                await Toast.Make(errMsg).Show();
+                await Application.Current.MainPage.DisplayAlert("Error", errMsg, "OK");
             }
             catch(Exception e)
             {

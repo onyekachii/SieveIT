@@ -10,14 +10,18 @@ namespace SeiveIT.Views;
 public partial class ProjectPage : ContentPage
 {
     public long ProjectId { get; set; }
-    public ProjectPage() =>	
-        InitializeComponent();
-    
-    protected override void OnAppearing()
+    public ProjectPage()
     {
-        base.OnAppearing();
-        if (!mainlayout.Children.OfType<OutcropListView>().Any())        
-            mainlayout.Add(new OutcropListView(ProjectId));        
+        InitializeComponent();
+    }
+
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        base.OnNavigatedTo(args);
+        OutcropContainer.ProjectId = 0;
+        OutcropContainer.ProjectId = ProjectId;
+        InitializeComponent();
+
     }
 
     public void displayPopup(object sender, EventArgs e) => this.ShowPopup(new AddOutcropPopup(ProjectId));

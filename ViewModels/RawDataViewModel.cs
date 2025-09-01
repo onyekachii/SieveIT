@@ -22,7 +22,5 @@ namespace SeiveIT.ViewModels
         [ObservableProperty]
         bool _isChecked = false;
         public long Id { get; set; }
-
-       
     }
 }

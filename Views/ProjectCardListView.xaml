@@ -9,11 +9,13 @@
             <converters:BoolToInverseBoolConverter x:Key="BoolNegationConverter"/>
         </ResourceDictionary>
     </ContentView.Resources>
-    <FlexLayout>
+
+    <Grid RowDefinitions="*, Auto">
         <CollectionView IsVisible="{Binding HasProjects}" 
-                        ItemsSource="{Binding projectCards}">
+                        ItemsSource="{Binding projectCards}"
+                        Grid.Row="0">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout x:Name="MyItemsLayout" Orientation="Vertical"/>
+                <GridItemsLayout x:Name="MyItemsLayout" Orientation="Vertical" Span="3"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -22,6 +24,8 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <Label Text="No Projects"
-               IsVisible="{Binding HasProjects, Converter={StaticResource BoolNegationConverter}}"/>
-    </FlexLayout>
+                IsVisible="{Binding HasProjects, Converter={StaticResource BoolNegationConverter}}"
+               Grid.Row="1"/>
+
+    </Grid>
 </ContentView>

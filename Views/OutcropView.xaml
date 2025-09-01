@@ -15,7 +15,7 @@
         </Border.GestureRecognizers>
         <StackLayout>
             <Label Text="{Binding Outcrop.Title}"/>
-            <Label Text="{Binding Outcrop.Date}"/>
+            <Label Text="{Binding Outcrop.Date, StringFormat='{0:dd MMM, yyyy}'}"/>
         </StackLayout>
     </Border>
 </ContentView>

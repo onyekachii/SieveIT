@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SeiveIT.Views.ProjectPage"
              xmlns:views="clr-namespace:SeiveIT.Views">
-    <VerticalStackLayout x:Name="mainlayout">
+
+    <Grid x:Name="mainlayout" RowDefinitions="Auto, *">
         <Grid
             Margin="0,0,0,50"
             ColumnDefinitions="*, Auto"
-            RowDefinitions="*">
+            RowDefinitions="*"
+            Grid.Row="0">
             <Label
                 FontFamily="Cormorant"
                 FontSize="24"
@@ -22,5 +25,13 @@
                 Grid.Column="1"/>
 
         </Grid>
-    </VerticalStackLayout>
+        <views:OutcropListView Grid.Row="1"
+            x:Name="OutcropContainer"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill" />
+
+        <!--<ContentView x:Name="OutcropContainer"
+                 Grid.Row="1" />-->
+        
+    </Grid>
 </ContentPage>

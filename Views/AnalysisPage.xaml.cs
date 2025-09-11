@@ -34,7 +34,5 @@ public partial class AnalysisPage : TabbedPage
                 Console.WriteLine($"Error adding page: {ex.Message}");
             }
         }
-    }
-
-  
+    }      
 }

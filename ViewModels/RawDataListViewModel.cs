@@ -10,6 +10,7 @@ using SeiveIT.Services.Interface;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.ComponentModel;
+using MathNet.Numerics.Interpolation;
 
 namespace SeiveIT.ViewModels
 {
@@ -57,7 +58,7 @@ namespace SeiveIT.ViewModels
                 plotModel.Axes.Add(new LinearAxis
                 {
                     Position = AxisPosition.Left,
-                    Title = forEngineer ? "Linear X-Axis" : "Cummulative Weight",
+                    Title = forEngineer ? "cummulative passing" : "cummulative weight",
                     Minimum = 0,
                     Maximum = 100,
                     MinorGridlineStyle = LineStyle.LongDashDot,
@@ -68,7 +69,7 @@ namespace SeiveIT.ViewModels
                     plotModel.Axes.Add(new LogarithmicAxis
                     {
                         Position = AxisPosition.Bottom,
-                        Title = "Log Y-Axis",
+                        Title = "mm scale",
                         Base = 10,
                         Minimum = min,
                         Maximum = max,
@@ -81,18 +82,41 @@ namespace SeiveIT.ViewModels
                     plotModel.Axes.Add(new LinearAxis
                     {
                         Position = AxisPosition.Bottom,
-                        Title = "Phi Scale",
+                        Title = "phi scale",
                         Minimum = min,
                         Maximum = max,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot
                     });
                 }
-                var series = new LineSeries();
-                foreach (var row in Rows)
+                
+
+                var series = new LineSeries 
                 {
-                    series.Points.Add(new DataPoint(forEngineer ? row.MiliScale : row.PhiScale, forEngineer ? row.CummPassing : row.CummWeight));
+                    StrokeThickness = 2,
+                    Color = OxyColors.Teal
+                };
+
+                var originalSeries = new ScatterSeries
+                {
+                    MarkerType = MarkerType.Circle,
+                    MarkerSize = 4,
+                    MarkerFill = OxyColors.Red
+                };
+                var xValues = Rows.Select(r => forEngineer ? r.MiliScale : r.PhiScale).ToArray();
+                var yValues = Rows.Select(r => forEngineer ? r.CummPassing : r.CummWeight).ToArray();
+                var spline = CubicSpline.InterpolateNatural(Rows.Select(r => forEngineer ? r.MiliScale : r.PhiScale), Rows.Select(r => forEngineer ? r.CummPassing : r.CummWeight));
+                               
+                for (int i = 0; i < xValues.Length; i++)
+                {
+                    originalSeries.Points.Add(new ScatterPoint(xValues[i], yValues[i]));
                 }
+                for (double x = xValues.Min(); x <= xValues.Max(); x += (xValues.Max() - xValues.Min()) / 200)
+                {
+                    series.Points.Add(new DataPoint(x, spline.Interpolate(x)));
+                }
+
+                plotModel.Series.Add(originalSeries);
                 plotModel.Series.Add(series);
                 return plotModel;
             }

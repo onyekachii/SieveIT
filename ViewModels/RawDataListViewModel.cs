@@ -53,7 +53,7 @@ namespace SeiveIT.ViewModels
         {
             try
             {
-                var title = forEngineer ? "" : "Cummulative Weight vs Phi";
+                var title = forEngineer ? "Cummulative Passing vs mm" : "Cummulative Weight vs Phi";
                 var plotModel = new PlotModel { Title = title };
                 plotModel.Axes.Add(new LinearAxis
                 {
@@ -140,27 +140,11 @@ namespace SeiveIT.ViewModels
                     var p1 = lineSeries.Points[i];
                     var p2 = lineSeries.Points[i + 1];
 
-                    if ((p1.Y <= yValue && p2.Y >= yValue) || (p1.Y >= yValue && p2.Y <= yValue))
+                    if (((p1.Y <= yValue && p2.Y >= yValue) || (p1.Y >= yValue && p2.Y <= yValue)))
                     {
                         double xValue = p1.X + (yValue - p1.Y) * (p2.X - p1.X) / (p2.Y - p1.Y);
                         return xValue;
-                    }
-                    //if ((p1.Y <= yValue && p2.Y >= yValue) || (p1.Y >= yValue && p2.Y <= yValue))
-                    //{
-                    //    // Transform to linearized space if axis is logarithmic
-                    //    double y1 = yAxis is LogarithmicAxis ? Math.Log10(p1.Y) : p1.Y;
-                    //    double y2 = yAxis is LogarithmicAxis ? Math.Log10(p2.Y) : p2.Y;
-                    //    double x1 = xAxis is LogarithmicAxis ? Math.Log10(p1.X) : p1.X;
-                    //    double x2 = xAxis is LogarithmicAxis ? Math.Log10(p2.X) : p2.X;
-
-                    //    double yTarget = yAxis is LogarithmicAxis ? Math.Log10(yValue) : yValue;
-
-                    //    // Linear interpolation in transformed space
-                    //    double xInterp = x1 + (yTarget - y1) * (x2 - x1) / (y2 - y1);
-
-                    //    // Convert back from log if necessary
-                    //    return xAxis is LogarithmicAxis ? Math.Pow(10, xInterp) : xInterp;
-                    //}
+                    }                   
                 }
 
                 throw new InvalidOperationException("No intersection found for the specified Y value.");
@@ -171,7 +155,7 @@ namespace SeiveIT.ViewModels
                 return 0;
             }
         }
-
+              
         void Load()
         {
             List<SeiveData> data = Task.Run(async ()=> await _serviceManager.RawDataService.Get(Pid, Oid)).Result;
@@ -246,9 +230,9 @@ namespace SeiveIT.ViewModels
                 return;
             }
         }
-        void BuildLogVsCummPassing(IEnumerable<double> phiValues)
+        void BuildLogVsCummPassing(IEnumerable<double> mmValues)
         {
-            PlotModeler = CreatePlotModel(phiValues.Min(), phiValues.Max(), true);
+            PlotModeler = CreatePlotModel(mmValues.Min(), mmValues.Max(), true);
             var d10 = GetXValueForY(10);
             var d30 = GetXValueForY(30);
             var d60 = GetXValueForY(60);

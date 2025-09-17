@@ -7,7 +7,8 @@
                 StrokeThickness="1">
             <CheckBox IsChecked="{Binding IsChecked}"            
                       Grid.Row="{Binding RowNumber}"
-                      HorizontalOptions="Center"/>
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center"/>
         </Border>
             
         <Border Stroke="Black"
@@ -16,6 +17,7 @@
                 Grid.Column="1">
             <Entry Text="{Binding PhiScale}" 
                    HorizontalTextAlignment="Center"
+                   VerticalOptions="Center"
                    TextChanged="OnTextChanged"
                    Keyboard="Numeric" />
         </Border>
@@ -25,7 +27,8 @@
                 Grid.Row="{Binding RowNumber}" 
                 Grid.Column="2">
             <Label Text="{Binding MiliScale}" 
-                   HorizontalTextAlignment="Center" />            
+                   HorizontalTextAlignment="Center"
+                   VerticalOptions="Center"/>            
         </Border>
             
         <Border Stroke="Black"
@@ -34,6 +37,7 @@
                 Grid.Column="3">
             <Entry Text="{Binding Weight}"
                    HorizontalTextAlignment="Center"
+                   VerticalOptions="Center"
                    TextChanged="OnTextChanged" 
                    Keyboard="Numeric"/>
         </Border>

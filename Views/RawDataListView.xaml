@@ -8,8 +8,7 @@
         <VerticalStackLayout>
             <HorizontalStackLayout HorizontalOptions="CenterAndExpand"
                                    Margin="0,0,0,15">
-                <!--<Label Text="{Binding TotalWeight}" Grid.Column="1" FontAttributes="Bold"/>-->
-                <!--<Label Text="{Binding TotalInd}" Grid.Column="2" FontAttributes="Bold"/>-->
+                
                 <Button 
                     Text="Run" 
                     Grid.Column="0" 
@@ -60,6 +59,9 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            
+            <Label Text="{Binding TotalWeight, StringFormat='Total Weight = {0}'}" Grid.Column="1" FontAttributes="Bold"/>
+            <Label Text="{Binding TotalInd, StringFormat='Total Individual Weight = {0}'}" Grid.Column="2" FontAttributes="Bold"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
